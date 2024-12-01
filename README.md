@@ -19,7 +19,8 @@ With competition at an all time high within the kingdom, a race to contribute th
 
 * A much smaller fraction of the remaining scholars, whom of which have not ascended into professional magic, have managed to get into the second-tier guild: the “Apprentice Guild”. Here, the scholars are in a preparatory phase to reach a Master Guild status. 
 
-Considering these three membership situations: we determined that the task at hand requires a **multi-class classification approach.**
+Considering these three membership situations: we determined that the task at hand requires a:
+### **multi-class classification approach.**
 
 
 
