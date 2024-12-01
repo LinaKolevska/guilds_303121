@@ -28,7 +28,7 @@ Achievements, Qualities, Current Status: all features that determine the fate of
 
 ### 1) Comprehending the structure of the Scholar data
 
-### 2) Performing an in-depth Exploratory Data Analysis: Broken Down in Parts
+### 2) Performing an extensive Exploratory Data Analysis: Broken Down in Parts
 
 ### 3) Model Preparation
 
