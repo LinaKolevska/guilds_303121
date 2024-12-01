@@ -1,4 +1,5 @@
-# Kingdom of Marendor Scholar Accomplishments
+# The Future of the Kingdom of Marendor 
+
 ### Team Members
 - Lina Kolevska
 - Chloe Quevedo
