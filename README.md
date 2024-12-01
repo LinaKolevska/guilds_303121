@@ -3,8 +3,10 @@
 - Lina Kolevska
 - Chloe Quevedo
 - Elina Yilmaz
-### Achievements, Qualities, Current Status: all features that determine the fate of these competing scholars. This brings us to the final, dire question:
+
+Achievements, Qualities, Current Status: all features that determine the fate of these competing scholars. This brings us to the final, dire question:
 ## **Who will be worthy enough to ascend into the Master Guild of Magic?**
+
 
 ## Our Task:
 *With competition at an all time high within the kingdom, a race to contribute the most to the technological development and progression of Marendor is in commencement. 
