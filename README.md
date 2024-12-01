@@ -4,8 +4,8 @@
 - Chloe Quevedo
 - Elina Yilmaz
 
-Achievements, Qualities, Current Status: all features that determine the fate of these competing scholars. This brings us to the final, dire question:
-## **Who will be worthy enough to ascend into the Master Guild of Magic?**
+*Achievements, Qualities, Current Status: all features that determine the fate of these competing scholars. This brings us to the final, dire question:
+### **Who will be worthy enough to ascend into the Master Guild of Magic?**
 
 
 ## Our Task:
