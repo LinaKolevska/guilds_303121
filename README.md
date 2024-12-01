@@ -13,13 +13,15 @@ Achievements, Qualities, Current Status: all features that determine the fate of
 ## Our Task 💭:
 With competition at an all time high within the kingdom, a race to contribute the most to the technological development and progression of Marendor is in commencement. 
 
-Their paramount goal is to utilize their overall potential to reach the final, and most determinant level of wizardry: the “Master Guild”.
+* Their paramount goal is to utilize their overall potential to reach the final, and most determinant level of wizardry: the “Master Guild”.
 
-Most scholars begin in the lowly phases of magic, with the heavy majority of scholars **not** belonging to any Guild; their Guild status is simple “No Guild”.
+* Most scholars begin in the lowly phases of magic, with the heavy majority of scholars **not** belonging to any Guild; their Guild status is simple “No Guild”.
 
-A much smaller fraction of the remaining scholars, whom of which have not ascended into professional magic, have managed to get into the second-tier guild: the “Apprentice Guild”. Here, the scholars are in a preparatory phase to reach a Master Guild status. 
+* A much smaller fraction of the remaining scholars, whom of which have not ascended into professional magic, have managed to get into the second-tier guild: the “Apprentice Guild”. Here, the scholars are in a preparatory phase to reach a Master Guild status. 
 
 Considering these three membership situations: we determined that the task at hand requires a **multi-class classification approach.**
+
+
 
 Commissioned by the King of Marendor, we were granted publicly-shared, personal details about these determined scholars. With this data, we trained the most efficient, top-of-the-line models following a thorough process of cleaning, balancing, and incrementally analyzing the supplied data. 
 
