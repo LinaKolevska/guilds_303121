@@ -5,15 +5,15 @@
 - Chloe Quevedo
 - Elina Yilmaz
 
-## The Question ⁉️:
+## The Royal Question 👑:
 Achievements, Qualities, Current Status: all features that determine the fate of these competing scholars. This brings us to the final, dire question:
 ### **Who will be worthy enough to ascend into the Master Guild of Magic?**
 
 
 ## Our Task 💭:
-With competition at an all time high within the kingdom, a race to contribute the most to the technological development and progression of Marendor is in commencement. 
+With competition at an *all time high* within the kingdom, a race to contribute the most to the technological development and progression of Marendor is in commencement. 
 
-* Their paramount goal is to utilize their overall potential to reach the final, and most determinant level of wizardry: the `"Master Guild”.`
+* The Scholars' paramount goal is to utilize their overall potential to reach the highest, and most determinant level of wizardry: the `"Master Guild”.`
 
 * Most scholars begin in the lowly phases of magic, with the heavy majority of scholars **not** belonging to any Guild; their Guild status is simple `“No Guild”.`
 
@@ -28,7 +28,7 @@ Commissioned by the King of Marendor, we were granted publicly-shared, personal 
 By collectively taking every feature, whether physiological attributes or magic-capability measurement, we determine the most effective methodologies/approaches to maximize predicting potential! Given the multitude of features to analyze from, we harnessed these strategies to hunt for the most relevant and useful features to accomplish this classification task.
 
 ## Project Preparation 🧮:
-*In efforts to manipulate and assess the dataset to its greatest capacity, we employed a myriad of Python libraries, a majority of functions coming from Scikit-Learn, and many others from Pandas, NumPy, Seaborn, Missingno, PyPlot, SciPy, and we utilized Python modules like “time” and “collections”.
+*Under a Royal Contract, and in efforts to manipulate and assess the dataset to its greatest capacity, we employed a myriad of Python libraries, a majority of functions coming from Scikit-Learn, and many others from Pandas, NumPy, Seaborn, Missingno, PyPlot, SciPy, and we utilized Python modules like “time” and “collections”.
 
 
 **Purpose of Libraries & Modules 📚:**
@@ -44,7 +44,7 @@ By collectively taking every feature, whether physiological attributes or magic-
 
 ## A Step by Step Guide into the Project🔎:
 ### *Completing the Royal Task 🌟*
-No monarchical projects go without meticulous preparation and pre-structuring, and thus, we configured a series of steps to complete our task, here they are in-depth:
+No **monarchical projects** go without meticulous preparation and pre-structuring, and thus, we configured a series of steps to complete our task, here they are in-depth:
 
 ### 1) Comprehending the structure of the Scholar data 🧱:
 * 1.1) In order to understand what features and relationships we have to deal with, we commenced by describing and exploring our superficial data, with no edits or manipulation. We coin the **original_data** variable as our unedited, raw **guilds.csv**. We maintain the integrity of the original dataset to distinguish all future changes from the original set of information, protecting the initial data for comparison. 
