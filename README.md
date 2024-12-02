@@ -42,7 +42,7 @@ By collectively taking every feature, whether physiological attributes or magic-
 - *collections module:* This is also a built-in Python module and offers specialized manipulations of collections of data. It is able to enumerate frequencies with its Counter function and create ordered dictionaries.
 
 
-## Step by Step Behind-the-Scenes: Completing the Royal Task 
+## A Step by Step Guide into the Project: Completing the Royal Task 🌟
 No monarchical projects go without meticulous preparation and pre-structuring, and thus, we configured a series of steps to complete our task, here they are in-depth:
 
 ### 1) Comprehending the structure of the Scholar data
