@@ -46,7 +46,7 @@ By collectively taking every feature, whether physiological attributes or magic-
 ### *Completing the Royal Task 🌟*
 No monarchical projects go without meticulous preparation and pre-structuring, and thus, we configured a series of steps to complete our task, here they are in-depth:
 
-### 1) Comprehending the structure of the Scholar data
+### 1) Comprehending the structure of the Scholar data 🧱:
 * 1.1) In order to understand what features and relationships we have to deal with, we commenced by describing and exploring our superficial data, with no edits or manipulation. We coin the **original_data** variable as our unedited, raw **guilds.csv**. We maintain the integrity of the original dataset to distinguish all future changes from the original set of information, protecting the initial data for comparison. 
 * 1.2) It is important to note that the majority of our categorical values are in the pattern of *“Present”* versus *“Absent”*, clarifying the presence of certain attributes and their belonging to a designated scholar. Our **target variable** is the *Guild_Membership* feature, which ultimately determines the fate of these scholars and their predictions for guild classification. Within this target column, the values are given as *“No_Guild”*, *”Master_Guild”*, and *“Apprentice_Guild”*, as mentioned previously.
 * 1.3) We begin by printing the Rows and Columns totals as our original data shape, display our data types, and print our missing value distributions. This is accomplished using a *.info( )* built-in function
