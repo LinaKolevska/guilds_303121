@@ -31,7 +31,7 @@ By collectively taking every feature, whether physiological attributes or magic-
 *In efforts to manipulate and assess the dataset to its greatest capacity, we employed a myriad of Python libraries, a majority of functions coming from Scikit-Learn, and many others from Pandas, NumPy, Seaborn, Missingno, PyPlot, SciPy, and we utilized Python modules like “time” and “collections”.
 
 
-**Purpose of Libraries & Modules:**
+**Purpose of Libraries & Modules 📚:**
 - *Scikit-Learn:* offers tools for classification, regression, clustering, and dimensionality reduction. This library contains algorithms like SVMs, Random Forests, K-Means Clustering and has tools for evaluating our models and preprocessing the data.
 - *Pandas:* integral for data manipulation and analysis and grants data structure like “DataFrame”, especially for tabular data. This helps clean data, aggregating/merging, and filtering and handling missing values.
 - *NumPy:* used for numerical computing and working to support large arrays with multidimensions and matrices. This completes statistical computations and linear algebra, while manipulating data on a quantitative scale.
@@ -42,7 +42,7 @@ By collectively taking every feature, whether physiological attributes or magic-
 - *collections module:* This is also a built-in Python module and offers specialized manipulations of collections of data. It is able to enumerate frequencies with its Counter function and create ordered dictionaries.
 
 
-## A Step by Step Guide into the Project: 
+## A Step by Step Guide into the Project🔎:
 ### *Completing the Royal Task 🌟*
 No monarchical projects go without meticulous preparation and pre-structuring, and thus, we configured a series of steps to complete our task, here they are in-depth:
 
