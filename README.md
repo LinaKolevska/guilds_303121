@@ -106,7 +106,7 @@ As above in 3.1, we split the data into 20-80% of training and testing. The para
 
 * 5.1) Along with training and testing our 4 selected models, it is crucial to spatially conceptualize the performance of these models. We accomplish this by plotting Learning Curves, with the `.plot_learning_curve( )` built-in function. We define our proportions of training sizes, that eventually grow from 10-100%, to plot the Learning Curves. We initialize the training and validation score lists for the varying training sizes, and iterate our training over this range. By this process, we are able to calculate the training **accuracy** and validation **accuracy** with a `.score( )` built-in function. These accuracies are plotted with the growing training set sizes, allowing us to visually perceive the behavior of each selected model, and understand how the models perform, relative to our split set proportions.
 
-* 5.2)We observe the following from our Learning Curves, assorted by model type:
+* 5.2) We observe the following from our Learning Curves, assorted by model type:
    - **1) Gradient Boosted Trees:**
       * **Training accuracy**: scores initially perform well, resulting with a score upwards of 76%, however, as the training set size begins to grow in proportion, the accuracy drastically decreases and levels out around the 80% training set size to a mid-late 60s percentage of accuracy
       * **Validation accuracy**: has a seemingly opposite trend, mirroring the training accuracy, but on a less dramatic scale. The accuracy begins below 62% and rises to nearly 66%, eventually plateauing at that accuracy score.
@@ -127,7 +127,8 @@ As above in 3.1, we split the data into 20-80% of training and testing. The para
      * **Validation accuracy**: begins lower at about 60%, and fluctuates,, in slight as the proportion of training set size increases, but only peaks at 62% and declines back down to 60.5%
      * **Analysis**:  There is a notable gap between these two accuracies, and this leads to an assumption that this model overfits the given data. Though the model can properly memorize the data of the training set, it has complications generalizing the yet-to-be-seen validation data. 
 
-**INSIGHT**: Here, we focus on understanding how the models perform relative to our split set proportions. The learning curves display how the training/validation accuracies fluctuate as the training set size grows. These plots are very indicative for our models, explaining how exactly our data size affects our models and their ability to perform on our designated data. 
+**INSIGHT**: 
+* Here, we focus on understanding how the models perform relative to our split set proportions. The learning curves display how the training/validation accuracies fluctuate as the training set size grows. These plots are very indicative for our models, explaining how exactly our data size affects our models and their ability to perform on our designated data.
 	* **Gradient Boosted Trees** maintains a balance between generalization & performance, making it the best candidate thus far, 
 	* **Random Forest** is very susceptible to overfitting without tuning/regularization.
 	* **Logistic Regression** is too far too linear/simple and underfits the data, though it shows strong generalization.
