@@ -189,7 +189,66 @@ This model demonstrated strong potential during initial testing but exhibited si
 We use these optimized parameters for further model training and evaluation.
 
 
-### 8) Hyperparameter Sensitivity Analysis:
+### 8) Evaluating our Models:
+* 8.1 We tested the performance of the models—Random Forest and Logistic Regression—using the best parameters identified from previous hyperparameter tuning. Along with the already-visualized accuracy, precision, recall, and F1 score, we also plotted a confusion matrix, with the class predictions in colour of intensity. 
+We define the two models with `models_with_best_params` in which the models are then trained with the full training sets (`X_train_final` and `y_train_final`). The accuracy and runtime are calculated on the validation set `y_val_pred` and the classification reports are printed out which include precision, recall, and F1 scores for each class. The A function `plot_learning_curve_best` evaluates model performance with varying amounts of training data.
+#### **Random Forest Results**
+- **Accuracy:** 0.7284
+- **Class-Level Performance:**
+ 	 - **Class 0 (No Guild):** High precision (0.75) and recall (0.81), indicating strong performance for this majority class.
+  - **Class 1 (Apprentice):** Moderate precision (0.61) and recall (0.63), showing decent but not perfect predictions for this group.
+ 	 - **Class 2 (Master):** Very high precision (0.98), but lower recall (0.65), meaning the model predicts "Master" accurately but misses some actual instances.
+- **Macro Average F1-Score:** 0.73
+- **Weighted Average F1-Score:** 0.73
+- **Training Time:** 3.15 seconds
+- **Generalization:** The model does not show signs of overfitting or underfitting, with validation performance aligning closely with expected outcomes.
+
+#### **Logistic Regression Results**
+- **Accuracy:** 0.6206
+- **Class-Level Performance:**
+ 	 - **Class 0:** Moderate precision (0.67) and high recall (0.82), showing a tendency to favor this majority class.
+  	- **Class 1:** Moderate precision (0.53) and recall (0.61), similar to Random Forest but slightly worse overall.
+ 	 - **Class 2:** Completely fails to predict this class, with precision, recall, and F1-score at 0.00.
+- **Macro Average F1-Score:** 0.44
+- **Weighted Average F1-Score:** 0.56
+- **Training Time:** 0.30 seconds
+- **Generalization:** Logistic Regression underfits the data, struggling to capture the complexity of class distributions, particularly for the "Master" class.
+
+#### **Comparison and Evaluation**
+- **Accuracy:** Random Forest outperforms Logistic Regression, showing better generalization across all classes.
+- **Class-Level Performance:**
+  - Random Forest handles all classes reasonably well, including the "Master" class, with a high precision of 0.98. Logistic Regression, however, fails entirely for the "Master" class.
+  - Both models perform moderately for the "Apprentice" class, but Random Forest achieves better precision and recall.
+  - Logistic Regression over-prioritizes the majority "No Guild" class, which impacts overall performance.
+- **Macro and Weighted F1-Scores:** Random Forest has significantly better F1-scores (0.73 vs. 0.44 macro and 0.73 vs. 0.56 weighted), reflecting its balanced performance across all classes.
+
+-  We have concluded that Random Forest is the superior model for this dataset, offering better accuracy, class-level performance, and generalization. Logistic Regression may still be useful for simple and linear tasks or when computational efficiency is a priority, but it is not suitable for this classification task.
+
+* 8.2 For a final model evaluation, we calculate the ROC Curves and AUC scores for our multi-class classification task, approached with “one-v-all”. As well, we compute a confusion matrix `ConfusionMatrixDisplay` for each model to highlight potential misclassifications. We compute macro averaging, used to equally weight the performance of each class, irregarding the class proportions; a very common multi-class classification strategy. For each class, we compute the ROC Curve and calculate the AUC as if it were a binary problem, and later take the simple average of AUC scores for all classes to compute the macro-averaged AUC. 
+#### Random Forest Results
+- **`Macro-AUC`: 0.8448:**This indicates that the Random Forest model performs well across all classes, with strong discriminative power.
+- **Confusion Matrix Observations:**
+	- *Class 0:* The model correctly classified the majority of instances (2204 correct, 510 misclassified as Class 1).
+	- *Class 1:* Moderate performance with 1014 correct predictions but 582 misclassified as Class 0.
+	- *Class 2:* Reasonable performance, with 560 correct classifications but noticeable confusion with other classes.
+- This final evaluation shows that Random Forest handles all three classes reasonably well, with the highest performance for Class 0 which is the No Guild category.
+
+#### Logistic Regression Results
+- **`Macro-AUC`: 0.7337**:This reflects how Logistic regression has a lower performance compared to Random Forest.
+- **Confusion Matrix Observations:**
+	- *Class 0:* Good performance with 2236 correct predictions, though some were misclassified as Class 1.
+	- *Class 1:* Moderate results, with 983 correctly predicted but a higher rate of confusion with Class 0.
+	- *Class 2:* The model was not very successful to predict Class 2, with all instances misclassified as either Class 0 or Class 1.
+- Lastly, Logistic Regression struggled significantly with the minority class (Class 2), leading to lower overall performance. It especially has lower performance than random forest.
+
+#### Graph Observations
+
+1. ##### Random Forest
+The curve is closer to the top-left corner of the plot, indicating high sensitivity (**True Positive Rate**) at lower False Positive Rates.
+
+2. ##### Logistic Regression
+The curve is less steep and farther from the top-left corner compared to Random Forest, indicating lower sensitivity at equivalent False Positive Rates.
+
 
 ### 9) Our Expert Cut: How Can We Optimize Guild Prediction?
 
