@@ -250,6 +250,6 @@ The curve is closer to the top-left corner of the plot, indicating high sensitiv
 The curve is less steep and farther from the top-left corner compared to Random Forest, indicating lower sensitivity at equivalent False Positive Rates.
 
 
-### 9) Our Expert Cut: How Can We Optimize Guild Prediction?
+### 10) Our Expert Cut: How Can We Optimize Guild Prediction?
 
 
