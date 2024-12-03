@@ -68,6 +68,7 @@ No **monarchical projects** go without meticulous preparation and pre-structurin
   * `Apprentice_Guild`: 4,166.
 * It is clear that the majority of our Scholars (75.8% to be precise) have not yet managed to enter a Guild, consequently imbalancing our data greatly. We visualize this distribution with a `.countplot(data=df, x=’Guild_Membership’)` built-in
 <img width="599" alt="Screenshot 2024-12-02 at 15 15 48" src="https://github.com/user-attachments/assets/b7253b96-1547-40c6-b5ec-2ffa0b8a8047">
+
 * 2.1.4) Working over two types of Scholar Feature, categorical and numerical, we separate the two for individual analysis. We create two respective variables for these column types and use a `.select_types(include=[‘object’, ‘bool’])` and a `.select_types(include=[‘float64’, ‘int64’])` built-in. We initialize lists for the discrete and continuous numerical values, further splitting one of the data types into categories. By establishing a for loop for each numerical column, we count unique values with a `.nunique( )` built-in. We assume that if the value type within each column is an integer or has less than 20 unique values, they can be categorized as *discrete* and added to the respective list, while all other cases are continuous values and are consequently added to the continuous list. These 4 data types: categorical, numerical, discrete, and continuous data are separated into dataframes, obviously numerical data having an overlap amongst the numerical category dataframes (continuous and discrete). By doing this we list the data type categories and display the characteristics of each feature. We retrieve the following:
   * `Categorical Columns:` 'Healer_consultation_Presence', 'Elixir_veggies_consumption_Presence', 'Bolt_of_doom_Presence', 'High_willingness_Presence', 'Defense_spell_difficulty_Presence', 'Doc_availability_challenge_Presence', 'Dexterity_check_Presence', 'Fruits_of_eden_consumption_Presence', 'Knight_physical_training_Presence', 'Royal_family_pressure_Presence', 'Guild_Membership', 'Heavy_elixir_consumption_Presence', 'Stigmata_of_the_cursed_Presence', 'Dragon_status_Presence' 
   * `Numerical Columns:` 'Fae_Dust_Reserve', 'Physical_Stamina', 'Mystical_Index', 'Mystic_Energy_Level', 'Age_of_Wisdom', 'Mental_Wizardry', 'Potion_Power_Level', 'Gold_Pouches_Per_Year', 'Wizardry_Skill', 'Spell_Mastering_Days', 'Level_of_Academic_Wisdom', 'General_Health_Condition', 'Dragon_Sight_Sharpness', 'Enchanted_Coin_Count', 'Celestial_Alignment', 'Knightly_Valor', 'Rune_Power', 'Age_of_Wisdom', 'Gold_Pouches_Per_Year', 'Level_of_Academic_Wisdom', 'General_Health_Condition', 'Dragon_Sight_Sharpness', 'Knightly_Valor'
@@ -125,7 +126,6 @@ Similar to the Apprentice Guild, Age of Wisdom correlations seem important, in c
 The Highly Relevant Features are likely the most essential for Guild prediction, with heavy influence, and should be kept in mind for proceeding analyses.
 	**Most Irrelevant Features**: We determined that the last three features, with the 3 largest p-values, are the most irrelevant amongst the categorical features. These are:
 `Fruits_of_eden_consumption_Presence`, `Doc_availability_challenge_Presence`, `Healer_consultation_Presence`
-For human-readability we printed a crosstab example of what each feature and the respective target variable value look like in comparison: INSERT IMAGEEEEEEEEEEE
 
 #### Part IV of Step 2: Reducing our Dataset –based on our analysis of **Importance/Relevance**
 * 2.4.1) Similarly done before, we copy our dataframe into a new one, called `df_reduced`. This way we can maintain the integrity of each change per important step, and have mediums to perform comparisons later on. Now we can perform continued data reduction and refinement. As identified just previously, we selected the 3 largest p-value features as the most irrelevant from the Top 10 most relevant selection; the rest of the features, non-included in the Top 10 results, will obviously be removed, as well, as their irrelevance is implied. This process drops 13 total irrelevant columns and prints the remaining ones.
@@ -165,6 +165,10 @@ As the final step, we displayed the updated column lists for final verification.
 #### Part VI of Step 2: Identifying correlations and distributions of relevant features for categorization
 *2.6.1) Checking for outliers and handling them in a way that the once that are on above the plot distribution  we set as the highest value within the plot and the once under we set as the lowest value within the plot.
 Before checking for outliers we created a copy of the dataset to only show the outliers but then we proceeded to alter the `df_balanced` when handling them. The handling methods involve capping outliers to the nearest acceptable values based on the IQR.
+
+<img width="1242" alt="Screenshot 2024-12-03 at 23 37 55" src="https://github.com/user-attachments/assets/d0301a9b-45cc-460e-a943-c064058898cd">
+Left (outlier detection), Right (outlier handling)
+
 **Outlier Detection** 
 We calculated the outliers by defining the values that are not within the boundaries of lower (Q1 - 1.5 * IQR) and upper bounds (Q3 + 1.5 * IQR).  Once calculated for each column, it is printed and plotted as boxplots: 
 
