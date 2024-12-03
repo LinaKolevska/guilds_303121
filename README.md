@@ -80,6 +80,25 @@ No **monarchical projects** go without meticulous preparation and pre-structurin
 
 
 ### 3) Model Preparation
+* 3.1) Once we’ve collected all our data, Splitting our data into testing and training sets, 20% assigned to test set (With more training samples, the model is more likely to encounter variations in the data, making it better at generalizing to unseen cases) (80% allocated for training ensures the model has sufficient data to learn patterns and relationships among features and target classes) -> prints shape of data 
+
+	We use the 80-20 split which provides a balanced approach:
+ -  **80% training data:** Maximizes learning potential for the model.
+ - **20% test data:** Ensures robust evaluation of the model's performance and generalization ability.
+A smaller training set (e.g., 70-30 split) might lead to underfitting due to insufficient data for training. Conversely, a smaller test set (e.g., 90-10 split) may not provide enough data for reliable evaluation.
+
+We implement the split by first defining the input features: **X:** The feature matrix containing independent variables, **y:** the target variable containing class labels. Then, we specify that 20% of the data should go into the test set. We include `random_state=42`to ensure reproducibility by fixing the random seed, and `stratify=y` to maintain the portion of target classes in the training and testing sets.
+1. **Feature Matrix**: `X_train_final shape: (19945, 20), X_val shape: (4987, 20)`. Both subset have the same feature count proving consistency for model training.
+2. **Target Labels**: `y_train_final shape: (19945,), y_val shape: (4987,)`. The use of stratified sampling assures that the class distribution in `y_train` and `y_test` mirrors the original distribution in y. This is important for potentially imbalanced datasets like ours to prevent biased splits.
+
+* 3.2) We scale the training and testing tests to standardize features to ensure each feature contributes equally to the model. We do the scaling to a copy of the test and training sets for security. This can only be performed on numerical columns for their quantitative characteristics.
+With a list comprehension for loop, we identify and extract the numerical columns (with data types `float64` or `int64`) from `feature_columns`. Scaling is done only with numerical columns because applying it to categorical columns can distort their value and meanings. 
+
+ - `fit_transform` calculates the mean and standard deviation of each numerical feature in `X_train` and scales the data accordingly. `transform` applies the scaling parameters learned from `X_train` to `X_test`.
+ - **Output:** There is an equal contribution from features so, for example, features like Gold_Pouches_Per_Year do not dominate smaller-scale features. There is also consistency in the scaling due to the testing set scale using parameters from the training set evidenced by `Fae_Dust_Reserve`: Training (-1.162043 to -0.980271), Testing (-0.268081 to 1.051221).
+* 3.3) Further splitting the scaled training set dataset for the final dataset and validation set that remains independent of the training process.
+As above in 3.1, we split the data into 20-80% of training and testing. The parameters are `X_train_scaled` and `y_train`: The scaled features and corresponding labels from the initial training set. We again stratify `y`. We get the final training and validation set where there are 19,945 samples in the final training set and 20 columns. The feature matrix of the validation set has 4,987 samples, which is 20% of the original training set and 20 columns. The output shows a proportional split applied to the training set and consistency between the training and validation sets, which is critical for training ML models.
+
 
 ### 4) Training and Testing Models 
 
