@@ -47,7 +47,7 @@ By collectively taking every feature, whether physiological attributes or magic-
 ### *Completing the Royal Task 🌟*
 No **monarchical projects** go without meticulous preparation and pre-structuring, and thus, we configured a series of steps to complete our task, here they are in-depth:
 
-## **<h3 align="center"> ★ 1) Comprehending the structure of the Scholar data 🧱: ★ </h3>** 
+## **<h4 align="center"> ★ 1) Comprehending the structure of the Scholar data 🧱: ★ </h4>** 
 * 1.1) In order to understand what features and relationships we have to deal with, we commenced by describing and exploring our superficial data, with no edits or manipulation. We coin the **original_data** variable as our unedited, raw **guilds.csv**. We maintain the integrity of the original dataset to distinguish all future changes from the original set of information, protecting the initial data for comparison. 
 * 1.2) It is important to note that the majority of our categorical values are in the pattern of *“Present”* versus *“Absent”*, clarifying the presence of certain attributes and their belonging to a designated scholar. Our **target variable** is the `Guild_Membership` feature, which ultimately determines the fate of these scholars and their predictions for guild classification. Within this target column, the values are given as *“No_Guild”*, *”Master_Guild”*, and *“Apprentice_Guild”*, as mentioned previously.
 * 1.3) We begin by printing the Rows and Columns totals as our original data shape, display our data types, and print our missing value distributions. This is accomplished using a `.info( )` built-in function. Here we deem that our dataset is quite large, with **253,68**0 rows and **31 features** (columns). 
@@ -58,8 +58,8 @@ No **monarchical projects** go without meticulous preparation and pre-structurin
 
 
 
-## **<h3 align="center"> ★ 2) Performing an extensive Exploratory Data Analysis: Broken Down in Parts ★ </h3>** 
-#### Part I of Step 2:
+## **<h4 align="center"> ★ 2) Performing an extensive Exploratory Data Analysis: Broken Down in Parts ★ </h4>** 
+#### Part I of Step 2: Cleaning
 * 2.1.1) At this point, we have retrieved the basic information and distributions of our original dataset and decide to proceed with the cleaning and manipulation. We determined it necessary to copy the *original_data* into a dataframe; we call it **”df”**. This is accomplished with the *.copy( )* built-in. Again, this is done for future comparison and analysis amongst intervals of data modifications. 
 * 2.1.2) Previously identifying the target variable `Guild_Membership`, it is paramount that the status of this feature is not null for each examined Scholar. Thus, we remove the Scholars that have a missing membership status, allowing us to properly analyze and handle our task. To accomplish this we print the missing value count for each Scholar (each row), within the Guild Membership column. In the case that the value is missing, we drop it with a `.dropna(subset=[‘Guild_Membership’])`. To verify this removal, we print the summed Guild_membership missing values, post-removal. We began with **25,447** Scholars with zero Membership documentation, and prevailed with **0** undocumented Scholars. 
 * 2.1.3) Focusing in on our target variable, we proceeded with delving into its distribution. Utilizing a `.value_counts( )` built-in, we aggregated the total number of presences, per class. Our results:
@@ -68,16 +68,137 @@ No **monarchical projects** go without meticulous preparation and pre-structurin
   * `Apprentice_Guild`: 4,166.
 * It is clear that the majority of our Scholars (75.8% to be precise) have not yet managed to enter a Guild, consequently imbalancing our data greatly. We visualize this distribution with a `.countplot(data=df, x=’Guild_Membership’)` built-in
 <img width="599" alt="Screenshot 2024-12-02 at 15 15 48" src="https://github.com/user-attachments/assets/b7253b96-1547-40c6-b5ec-2ffa0b8a8047">
-
 * 2.1.4) Working over two types of Scholar Feature, categorical and numerical, we separate the two for individual analysis. We create two respective variables for these column types and use a `.select_types(include=[‘object’, ‘bool’])` and a `.select_types(include=[‘float64’, ‘int64’])` built-in. We initialize lists for the discrete and continuous numerical values, further splitting one of the data types into categories. By establishing a for loop for each numerical column, we count unique values with a `.nunique( )` built-in. We assume that if the value type within each column is an integer or has less than 20 unique values, they can be categorized as *discrete* and added to the respective list, while all other cases are continuous values and are consequently added to the continuous list. These 4 data types: categorical, numerical, discrete, and continuous data are separated into dataframes, obviously numerical data having an overlap amongst the numerical category dataframes (continuous and discrete). By doing this we list the data type categories and display the characteristics of each feature. We retrieve the following:
   * `Categorical Columns:` 'Healer_consultation_Presence', 'Elixir_veggies_consumption_Presence', 'Bolt_of_doom_Presence', 'High_willingness_Presence', 'Defense_spell_difficulty_Presence', 'Doc_availability_challenge_Presence', 'Dexterity_check_Presence', 'Fruits_of_eden_consumption_Presence', 'Knight_physical_training_Presence', 'Royal_family_pressure_Presence', 'Guild_Membership', 'Heavy_elixir_consumption_Presence', 'Stigmata_of_the_cursed_Presence', 'Dragon_status_Presence' 
   * `Numerical Columns:` 'Fae_Dust_Reserve', 'Physical_Stamina', 'Mystical_Index', 'Mystic_Energy_Level', 'Age_of_Wisdom', 'Mental_Wizardry', 'Potion_Power_Level', 'Gold_Pouches_Per_Year', 'Wizardry_Skill', 'Spell_Mastering_Days', 'Level_of_Academic_Wisdom', 'General_Health_Condition', 'Dragon_Sight_Sharpness', 'Enchanted_Coin_Count', 'Celestial_Alignment', 'Knightly_Valor', 'Rune_Power', 'Age_of_Wisdom', 'Gold_Pouches_Per_Year', 'Level_of_Academic_Wisdom', 'General_Health_Condition', 'Dragon_Sight_Sharpness', 'Knightly_Valor'
   * `Discrete Columns:` 'Age_of_Wisdom', 'Gold_Pouches_Per_Year', 'Level_of_Academic_Wisdom', 'General_Health_Condition', 'Dragon_Sight_Sharpness', 'Knightly_Valor'
   * `Continuous Columns:` ‘Fae_Dust_Reserve', 'Physical_Stamina', 'Mystical_Index', 'Mystic_Energy_Level', 'Mental_Wizardry', 'Potion_Power_Level', 'Wizardry_Skill', 'Spell_Mastering_Days', 'Enchanted_Coin_Count', 'Celestial_Alignment', 'Rune_Power'
 
+
 #### Part II of Step 2: Descriptive Statistics
-* 2.2.1)
-* 2.2.2)
+* 2.2.1) We now proceed with examining the Numerical Columns, by visualizing the distributions of the columns to uncover patterns, outliers, and data properties.
+	* 1. **Dynamic Layout:** Rows and columns are calculated based on the number of variables to optimize space. This is done for future plotting. We utilize `ceil` logic as a security measure, to ensure that the columns fit within the grid. We create subplots with `plt.subplots(n_rows, n_cols)` to create a grid of subplots. These subplots individually display the numerical column distributions (for each feature). 
+	* 2. **Histograms with KDE:** Utilizing `sns.histplot , we have a histogram with a kernel density estimate (KDE) overlay. We set `bins` to 30 and add a KDE curve. Histograms reveal frequency, while KDE overlays smooth density estimation for better interpretation.
+	* 3. **Customization:** Titles, labels, and consistent formatting improve readability.
+	* 4. **Clean Layout:** Extra empty plots are removed, and we employ `plt.tight_layout()` to adjust the subplot spacing. `plt.show` is used to plot everything.
+	* **INSIGHT**: We notice that we have resulting skewed distributions, for example, our *Fae Dust Reserve* displays a right skew behavior. Several features like *Knightly Valor* have a distribution that suggests there could be the presence of subgroups. Features like *Potion Power Level* appear to have a Uniform distribution, while *Wizardry Skill* is almost Normal. We also noticed some black sheep columns, for example, the *Gold Pouches per Year* feature, with spikes in the distribution, possibly leading to a unique trend. Let it be known and understood that the *Power Potion Level* and *Enchanted Coin Count* have mostly flat/consistent distributions, which makes them high contenders for dropping, as they seem to be irrelevant to the future prediction 
+* 2.2.2)  We now proceed by doing the same examinations, but for the Categorical Columns, by visualizing the distributions of the columns to uncover patterns, outliers, and data properties. We dynamically calculated the row numbers needed to the columns and again use the `ceil` logic to accomplish this. By creating subplots we are able to conceptualize the distribution subplots using a `plt.subplots(n_rows, n_cols, figsize=(20, n_rows * 6))` built-in. We ensure to flatten the 2D axes array into one dimension for facilitated iteration. We display the category counts in each column with `value_counts( )` and output a bar chart to spatially visualize everything. We use `plt.tight_layout( )` again do avoid overlap.
+	* **INSIGHT**: * We are able to see the comparisons of value presences, amongst the individual features. For example, columns similar to *Healear Consultation Presence* has far more *”Present”* values than *”Absent”* values (**195,303 vs. 10,106**). *Heavy Elixir Consumption Presence* and *Bolt of Doom*, “absences” absolutely dominate the features (**196,951 Absent  vs. 8,398 Present**). 
+* The majority of our binary columns have severe class imbalances and the Multi-Category Influence (within the target variable), being so imbalanced, allows us to proceed into a specific type of encoding of the categorical variables. This led us to choose a mapping technique.
+
+#### Part III of Step 2: Encoding Target Variable for Correlation Analyses 
+* 2.3.1) Post analysis of both data types, proceeded with a mapping style encoding, customizing the values for each one of our guilds. This is obviously crucial to determine correlations and continue optimizing prediction performance. Instead of applying a one-hot or label encoding technique, we decide to customize our encoded values. We create a dictionary `guild_mapping` and allocate the following categorical values into encoded numbers:
+	* `No_Guild` = 0
+	* `Master_Guild` = 1
+	* `Apprentice_Guild` = 2
+* We proceed to apply this modification to the entire Guild Membership column, and map each value using a `.map( )` built-in, and proceed to store all of this into a brand new column called `Guild_Membership_encoded`. We later delete the original Guild_Membership column, and have it officially replaced by the encoded version. We proceed to segment our data based on these values: 0, 1, 2, allowing us to process each of these Guild classes separately. This way we can prepare for correlations and understand how each Guild class is impacted by the other features (essentially our target task). We utilize filtering conditions and store each of data subsets into three variables, one for each class.
+
+* 2.3.2) Now, we get to mobilize the “segmenting” we just accomplished previously and apply it to an integral step of our EDA: *correlation*. We select all numerical columns, excluding the encoded Guild Membership column, using a `.difference( )` built-in, as the classes can not be correlated to themselves. We utilize the segmented data from above and compute the correlation matrices between each Guild Class and the numerical features and their varying values. This is accomplished with a `.corr( )` built-in. Outputted is a correlation matrix for each Guild class.
+
+* **INSIGHT**: We observed the following from the matrices:
+	- Rune_Power: We noticed that this feature consistently shows correlations close to 0 across all guild memberships, indicating it doesn’t provide meaningful relationships. 
+	- Dragon_Sight_Sharpness: We observed that it has minimal correlation with other numerical features or the target variable, making it largely irrelevant.
+	-  Spell_Mastering_Days: This feature has consistently low correlations across all guild categories, so we consider it uninformative.
+	- Celestial_Alignment: Its relationships with Guild_Membership and other features are very weak, offering little value.
+	-  Wizardry_Skill: We found that this feature has consistently weak correlations across all guilds and doesn’t contribute any significant or differentiating information.
+
+* These analyses will be handled later, the important part is that we’ve identified many telling insights for our following actions.
+
+* 2.3.3) In efforts to find the most significant correlation values quickly and efficiently, we extract the Top Correlated Feature per Guild class. We use `.abs( )` to extract the absolute values of the correlations, regardless of direction and convert the square matrix into a flat series of key-value pairs for each pair of features using `.unstack( )`; the key is the pair, the value if the absolute value. We ensure that no features are compared with themselves. These are sorted in descending order to get the top correlations and output the Top 10 Correlations. This is applied for each Guild. We gather the following observations:
+	- `No_Guild`: Most Significant Correlations
+		- `General_Health_Condition` ↔ `Physical_Stamina`: 0.4975
+		- `Gold_Pouches_Per_Year` ↔ `Level_of_Academic_Wisdom`: 0.4351
+		- General_Health_Condition appears a multitude of times in comparison with the Top Correlations, indicating that it is strongly correlated to other features like `Mental_Wizardry` and more, for the No Guild values. Because most of these correlations are involving health/academic metrics, we can gather that these values are essential in the No Guild causations
+	- `Apprentice_Guild`: Most Significant Correlations
+		- `Physical_Stamina` ↔ `General_Health_Condition`: 0.5310
+		- `Gold_Pouches_Per_Year` ↔ `Level_of_Academic_Wisdom`: 0.4471
+Health related features are also quite dominant in these correlations, however, some unique pairs of correlations appear here, for example `Age_of_Wisdom` ↔ `Mystical_Index` which is indicative for this specific class: potentially telling us that these Scholars are possibly older and have thus a concurrent Mystical Index that relates to their age status. 
+	- `Master_Guild`: Most Significant Correlations
+		- `General_Health_Condition` ↔ `Physical_Stamina`: 0.5446
+		- `Level_of_Academic_Wisdom` ↔ `Gold_Pouches_Per_Year`: 0.4426
+Similar to the Apprentice Guild, Age of Wisdom correlations seem important, in consistent measures, in associating potential importance in age with overall mystical experience. This guild class places slight emphasis on financial and mystical capacities, compared to the rest. All of these characteristics reflect the association of overall “maturity” with attaining a **Master Guild** status.
+
+* 2.3.4) We decide to perform a Chi-Square Test of Independence, in an effort to identify the categorical features (excluding the target variable) that are associated with the target variable statistically. We employ statistical metrics and calculate the p-values for each feature. This also allows us to identify irrelevant features, taking a step closer to reduction and consolidation. We remove missing value present rows and create a contingency table to display the frequency of occurrences of each combination, using `pd.crosstab( )`. We follow this with a Chi-Square stat and p-value calculation using `chi2_contingency`. If the p-value is smaller, this implies a strong association between the target variables and features, and because of this, we sort by ascending value, prioritizing the smaller values. 
+* **INSIGHT**: We observed the following from our outputs:
+	**Highly Relevant Features**: `Bolt_of_doom_Presence`, `High_willingness_Presence`, and  `Defense_spell_difficulty_Presence` have extremely small values, with p-values of **0.00000e+00**
+	**Moderately Significant Features**: `Fruits_of_eden_consumption_Presence`,`Doc_availability_challenge_Presence`, and `Healer_consultation_Presence` with still extremely small p-values, like **1.309751e-70**
+The Highly Relevant Features are likely the most essential for Guild prediction, with heavy influence, and should be kept in mind for proceeding analyses.
+	**Most Irrelevant Features**: We determined that the last three features, with the 3 largest p-values, are the most irrelevant amongst the categorical features. These are:
+`Fruits_of_eden_consumption_Presence`, `Doc_availability_challenge_Presence`, `Healer_consultation_Presence`
+For human-readability we printed a crosstab example of what each feature and the respective target variable value look like in comparison: INSERT IMAGEEEEEEEEEEE
+
+#### Part IV of Step 2: Reducing our Dataset –based on our analysis of **Importance/Relevance**
+* 2.4.1) Similarly done before, we copy our dataframe into a new one, called `df_reduced`. This way we can maintain the integrity of each change per important step, and have mediums to perform comparisons later on. Now we can perform continued data reduction and refinement. As identified just previously, we selected the 3 largest p-value features as the most irrelevant from the Top 10 most relevant selection; the rest of the features, non-included in the Top 10 results, will obviously be removed, as well, as their irrelevance is implied. This process drops 13 total irrelevant columns and prints the remaining ones.
+* 2.4.2) We can finally continue reducing our dataset, commencing with the removal of the most irrelevant columns, then with the most undocumented Scholars, and finally with the rows that have missing values within the most “important/relevant” features. We identify the undocumented Scholars by selecting the ones that have missing values in more than 6 columns, establishing this as our threshold for removal –it is important to note that **we avoid all rows where Scholars are within the  `Apprentice_Guild` (value *2* within the encoded Guild Membership column), to protect the underrepresented Guild and its imbalance.** We print this shape, resulting in **227,700 Scholars** and **21 Features**. We have significantly reduced our dataset, but it is still far too large to *FILL* our missing values: our biggest objective to achieve before training our models. 
+
+* 2.4.3) We proceed with determining the most relevant features. This time we drop the rows where there is *at least* one missing value among these features, in an effort to balance the dataset, while protecting the limited `Apprentice_Guild` values. We target the classes `No_Guild` and `Master_Guild` and their relevant features, because they are most prevalent in the database; they are heavily imbalanced in comparison with the `Apprentice_Guild`. The objective is to remove the rows with missing values to create a balanced dataset and ensure data quality within the test-training dataset. The relevant features identified are shown in the code as follows: **Physical_Stamina, General_Health_Condition, Gold_Pouches_Per_Year, Level_Of_Academic_Wisdom, Mental_Wizadry, 'Bolt_of_doom_Presence', 'High_willingness_Presence', Defense_spell_difficulty_Presence', Knight_physical_training_Presence, Royal_family_pressure_Presence, Stigmata_of_the_cursed_Presence**
+There are two conditions encoded for identifying which rows to drop. These conditions are combined with `&` condition: 
+`Guild_Membership_encoded == 0`: this filters the rows where guild membership is not present (*0*)
+`.isnull().any(axis=1)`: this filters the rows where there are missing values (*NaN*)
+	The DataFrame’s size after cleaning is reduced from (227,700, 21) to (95,828, 21) meaning **31,872**
+rows were dropped. 
+* 2.4.4) After looking at the distribution of the guild membership we see that it is still not balanced after doing all of the data cleaning. This allows us to quickly see the proportion of guild members versus non-members in the cleaned dataset. We also aim to visualize this data to help communicate the data distribution. In doing this we also create a copy of the dataset to maintain its integrity for modifications. We calculate the distribution first with `df_cleaned['Guild_Membership_encoded']` extracts the column representing the guild membership and `.value_counts()` counts each unique value in the column. We then print out the count and represent it visualizing using a bar graph through, `distribution.plot(kind='bar', …)`.
+The outputs show the precise distribution in the column. The majority of rows in the group (59,991) belong to category 0 (`No_Guild`). The second majority of the rows (31,671) belong to category 1 (`Master_Guild`) and lastly, category 2(`Apprentice_Guild`) has the smallest portion of the cleaned dataset (4,166).  This distribution represents a significant imbalance in the dataset which will be considered in the later analyses and modeling to avoid inaccurate and biased results.
+
+#### Part V of Step 2: Data Splitting Amongst Categorical and Numerical Columns
+* 2.5.1) Then we reduce the no guild and master guild columns to 20000 for no guild and 13000 for apprentice guild. And with this it creates new dataset called `df_balanced`
+As there is a class imbalance in our dataset, we implemented a resampling strategy to address this problem. We downsample the over-represented classes (categories 0, and 1) and keep the minority class (category 2) unchanged. In the code, we split the data into the respective classes. We then proceed to reduce the over-represented classes with:
+- `class_0_downsampled = resample(class_0, replace=False, n_samples=20000, random_state=42)`
+- `class_1_downsampled = resample(class_1, replace=False, n_samples=13000, random_state=42)`
+* …while the minority class is kept unchanged with:  `class_2_unchanged = class_2`. 
+* We then combine the downsampled subsets and unchanged class into a single DataFrame (`df_balanced`). We save the reduced Dataframe as a new CSV file to be referenced later, again to protect each changed CSV from the previous one. Lastly, we perform the counting of distributions and the visualisation of the distributions utilized in the previous step L to output the updated class distribution figures. The result of this method is the reduced dataset set is **37,166 rows** (*20,000 (class 0) + 13,000 (class 1) + 4,166 (class 2)*). In the end, there is an improvement in model fairness as the models that will be trained with this dataset are less likely to favour the dominant class and are better equipped to learn the patterns in the smaller classes.
+* 2.5.2) Splitting the columns into categorical and numerical in the new dataset to prepare them for filling in the missing values using KNN. The initial step is to identify the categorical and numerical columns in the dataset. Categorical columns were selected based on their data types: *object* for strings and *bool* for binary data. These columns will be encoded before using KNN, as KNN works with numerical data. Numerical columns were identified by *float64* for continuous data and *int64’* for integers. The columns will be used directly after normalization. We further split the numerical columns into `discrete_columns = []` and `continuous_columns = []`. For handling missing values, once split, discrete columns can be imputed with KNN, treating them as integer-like features, while continuous columns can be imputed with KNN, leveraging their continuous nature for distance calculations. Discrete numerical columns are columns with fewer than 20 unique values, as determined previously, and continuous numerical columns are columns with more than 20 unique values. We then display an output of the split categories as a list. This method provides proper feature preparation which enhances the performance of KNN by ensuring meaningful distance calculations.
+* 2.5.3) Doing KNN first for numerical continuous and discrete and THEN encoding the categorical values utilizing custom mapping to do KNN for categorical columns. 
+	**KNN imputation for numerical columns:**  
+		**KNN imputing for continuous features**: We start by scaling the continuous features with the use of `StandardScaler()` to standardize the where mean equals 0 and variance is equal to 1. Scaling is done to ensure features with larger ranges do not dominate the KNN distance calculations. 
+		**KNN imputation of discrete columns**: This handles the missing values which replace missing values based on the mean of the k nearest neighbors in the feature space. KNN imputation is done differently as these are directly imputed without scaling. Imputed values are rounded and converted back to integers to preserve their discrete nature.
+		**KNN imputation for categorical variables:**
+Firstly, we *inspect the categorical columns* by displaying unique values for each column to understand the range of possible values; done with `f"{col}: {df_balanced[col].unique()}".` This helps in preparing for the next steps, which are encoding and imputation
+As aforementioned, encoding is a necessary step in imputing categorical variables as KNN works with numerical data. Our encoding function first cleaned the values by converting all values to lowercase and removing the extra whitespaces. Then, it maps categorical values to binary `df_encoded[col].map({'yes': 1, 'present': 1, 'no': 0, 'absent': 0})`. The final step of the encoding function is handling missing values by replacing them with -1 as a placeholder.
+We finally go ahead with the KNN imputation which is the same process as the numerical importing above. The process is done by guaranteeing imputed values remain binary after rounding: `‘imputed_binary = imputed_binary.round().astype(int) df_copy[binary_columns] = imputed_binary`
+After each step, we verify and validate that the missing values have been successfully imputed. This is for us to check the effectiveness and success of the imputation
+**Updating column lists:** We have to ensure that the dataset is complete and ready for the step while maintaining the integrity of each feature type.
+We clean and ensure consistency by `list(numerical_columns)` and `list(set(categorical_columns))` are unique and mutually exclusive.
+We adjust the lists by moving the target column, `Guild_Membership_encoded`, to the numerical/ categorical columns if necessary
+As the final step, we displayed the updated column lists for final verification.
+
+#### Part VI of Step 2: Identifying correlations and distributions of relevant features for categorization
+*2.6.1) Checking for outliers and handling them in a way that the once that are on above the plot distribution  we set as the highest value within the plot and the once under we set as the lowest value within the plot.
+Before checking for outliers we created a copy of the dataset to only show the outliers but then we proceeded to alter the `df_balanced` when handling them. The handling methods involve capping outliers to the nearest acceptable values based on the IQR.
+**Outlier Detection** 
+We calculated the outliers by defining the values that are not within the boundaries of lower (Q1 - 1.5 * IQR) and upper bounds (Q3 + 1.5 * IQR).  Once calculated for each column, it is printed and plotted as boxplots: 
+
+The outliers of each category are as follows, `Fae_Dust_Reserve` has 745 outliers, `Physical_Stamina` has 5372 outliers, `Mystical_Index` has 772 outliers, `Mystic_Energy_Level` has 1456 outliers, `Age_of_Wisdom` has 1069 outliers, `Mental_Wizardry` has 4528 outliers, `General_Health_Condition` has 2020 outliers, `Knightly_Valor` has 50 outliers, and `Gold_Pouches_Per_Year` and `Level_of_Academic_Wisdom` both have 0 outliers. 
+As seen there is a large variability and there is a presence of extreme values in some of the data, resulting in those outliers.
+**Outlier Handling (Capping)** 
+We replace outlier values with the nearest acceptable bound to ensure extreme values are within a valid range. `df_balanced[column] = df_balanced[column].clip(lower=lower_bound, upper=upper_bound)` Values below the lower bound are set to the lower bound and the values higher than the upper bound are set to the upper bound. The result after capping there are no outliers
+
+
+* 2.6.2)Revisiting all the results from our myriad of cleaning and preprocessing. Calculating the correlation of features with the target variable, `Guild_Membership_encoded`, and visualizing the updated distributions of each feature across different guild membership categories.
+We perform a correlation analysis on the target variable where we discover the most positively correlated features are `General_Health_Condition` and `Royal_family_pressure_Presence`, and the most negatively correlated features are `Level_of_Academic_Wisdom` and `Gold_Pouches_Per_Year`. The positively correlated feature may indicate a significant role in distinguishing guild membership categories while the negatively correlated may indicate a potential inverse relationship with guild membership categories. Additionally, the features with (almost) no correlation, eg. `Knightly_Valor` with a value of **-0.000486**, may indicate that these values might be less relevant for predictive modelling.
+**Feature Distribution Visualization**
+We visualize the distribution of each feature in the dataset (`df_balanced`) across the three categories (1, 2, 3) of the target variable.
+*Histograms* `sns.histplot`: Plots histograms for each feature, breaking down their distributions across the categories of `Guild_Membership_encoded` using the hue parameter. Each category has its own separate bar to make their distribution visually distinct. 
+*Output* 
+* Features with Distinct Separations: Features like `General_Health_Condition`, `Royal_family_pressure_Presence`, and `High_willingness_Presence` show noticeable differences in distribution between guild membership categories. For example: `The Royal_family_pressure_Presence` and `High_willingness_Presence` distributions suggest these traits are more prominent for specific guild categories.
+* Features with Similar Distributions: Features such as `Mystic_Energy_Level` and `Knightly_Valor` appear to have overlapping distributions across guild membership categories. These might not provide much discriminatory power for classification.
+Skewed Features: Certain features, like `Gold_Pouches_Per_Year` and `Level_of_Academic_Wisdom`, exhibit skewed distributions. `Gold_Pouches_Per_Year` likely shows a right-skewed distribution, as most guild members/ the population have low or moderate gold reserves, with very few having extremely high values.
+*2.6.3) Plotting correlation heatmaps for each unique value within the Guild Membership column (0,1,2) to show how each feature correlates to the classification of each respective scholar
+We generate a heatmap for each guild membership type with the `unique()` method. Firstly, we make a subset `guild_data` to include only rows corresponding to the current `guild` category which is used to calculate correlations.
+
+Most Relevant Features for Classification
+
+From **No Guild (0)** to **Master Guild (1)**:
+1. Defense_spell_difficulty_Presence
+2. General_Health_Condition
+3. Physical_Stamina
+4. Royal_family_pressure_Presence
+
+From **No Guild (0)** to **Apprentice Guild (2)**:
+1. Mystical_Index
+2. Mystic_Energy_Level
+3. Level_of_Academic_Wisdom
+4. General_Health_Condition
 
 
 ### 3) Model Preparation
