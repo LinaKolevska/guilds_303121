@@ -256,6 +256,50 @@ The curve is closer to the top-left corner of the plot, indicating high sensitiv
 2. ##### Logistic Regression
 The curve is less steep and farther from the top-left corner compared to Random Forest, indicating lower sensitivity at equivalent False Positive Rates.
 
+### 9) Hyperparameter Sensitivity Analysis:
+It is paramount that we visualize the impact of the hyperparameters on our Random Forest Classifier’s training and test scores with line plots. This is completed by finding the mean scores for varying values of the number of trees in the forest (`n_estimators`), the maximum depth of the trees (`max_depth`), (`min_samples_split`) the minimum number of samples required to split an internal node, (`min_samples_leaf`) the minimum number of samples required to be in a leaf node, and (`max_features`) the maximum number of features considered for splitting a node. This step allows us to see how increasing the number of trees or adjusting the depth of the trees affects model performance (under vs. overfitting), The key hyperparameters are derived from the cross-examination portion of hyperparameter tuning of Random Forest via Randomized and Grid search. For the code, we use Randomized search to see how the ideal parameters for Gridsearch were chosen, then we see the fine-tuning of Gridsearch in the parameters.
+
+#### **Randomized Search**
+- `n_estimators`: 
+    - Training Score: remains consistently high, around 85%-95%, for all values of `n_estimators`.
+    - Test Score: remains lower than the training score, indicating a possible generalization gap.
+- `max_depth`: The maximum depth of each tree.
+    - Training Score:As shown, the score increases with `max_depth`, reaching nearly 100% at `max_depth = 20`, and then slightly declines as the model becomes overfitted or overly complex.
+    - Test Score:it peaks at around `max_depth = 20`, where the model achieves the best balance of complexity and generalization.
+- `min_samples_split`:
+    - Training Score: The training accuracy decreases slightly as min_samples_split increases. This is expected since larger splits make the model less complex by preventing small, specialized splits.
+    - Test Score: The test accuracy remains relatively stable, slightly peaking at lower `min_samples_split` values (around 2-5) and then plateauing or slightly decreasing. This suggests that smaller split thresholds provide sufficient complexity without overfitting.
+- `min_samples_leaf`:
+    - Training Score: The training accuracy peaks at `min_samples_leaf = 2` and starts to decline with larger leaf sizes. Smaller leaves allow the model to fit the training data more closely, increasing accuracy but risking overfitting.
+    - Test Score: The test accuracy mirrors this trend, with a slight peak at min_samples_leaf = 2 and a decline thereafter. Larger leaves simplify the model too much, leading to underfitting.
+- `max_features`:
+    - Training Score: The training accuracy increases as the number of features considered for splits grows (`sqrt to log2`). This happens because more features allow the model to fit the training data more precisely.
+    - Test Score: Test accuracy also improves as max_features increases, with the model achieving the best balance at `log2`. This suggests that considering more features helps the model generalize better without overfitting.
+
+
+#### **Grid search**
+- `n_estimators`: 
+    - Training Score: Remains consistently high, around 90%-95%, across all values of `n_estimators`. This indicates that the model is sufficiently complex to fit the training data well.
+    - Test Score: Remains lower than the training score, in the range of 65%-70%. This highlights a potential generalization gap, where the model may be overfitting.
+- `max_depth`:
+    - Training Score: Increases with `max_depth`, reaching nearly 100% at `max_depth = 20`. This reflects that deeper trees can perfectly fit the training data.
+    - Test Score: Increase as approaches the around `max_depth = 20`, where the model achieves the best balance between complexity and generalization. Beyond this point, overfitting may cause the test performance to degrade.
+- `min_samples_split`: 
+    - Training Score: Decreases slightly as `min_samples_split` increases from 4 to 6. This indicates that higher values of this parameter make the model less flexible, which plays in reducing its ability to fit the training data perfectly.
+    - Test Score: Remains relatively stable around 65%-70%, suggesting this parameter has minimal impact on the model’s generalization ability.
+- `min_samples_leaf`:
+    - Training Score: Decreases as `min_samples_leaf` increases from 1 to 2. Larger leaf sizes enforce a simpler model, reducing overfitting.
+    - Test Score: Remains relatively stable at approximately 65%-70%, indicating robustness to changes in this parameter.
+- `max_features`: 
+    - Training Score: Very high (around 90%-95%) with the derived feature option from Randomized Search, `log2`.
+    - Test Score: Lower than the training score, approximately 65%-70%, with a notable generalization gap. This suggests careful tuning of max_features might be needed to improve test accuracy.
+
+#### Conclusion
+- After conducting a randomized search for initial hyperparameter exploration, a grid search was performed to fine-tune the selected parameters with cross-validation. The results indicate that `n_estimators` and `max_depth` play a significant role, with training scores consistently high and test scores peaking at balanced values. The rest of the parameters like `min_samples_split`, `min_samples_leaf`, and `max_features` show stable test performance, with optimal values preventing overfitting or underfitting, demonstrating the model's sensitivity to complexity control.
+- The sensitivity analysis provides strong evidence to support the hyperparameter choices from the hyperparameter tuning we have done earlier. These visualizations not only validate the optimal values but also highlight how performance would degrade with less optimal configurations. This alignment increases our confidence in the tuned Random Forest model's robustness and generalization capabilities.
+
+### Which is the **Best Model** to Complete the Royal Task?
+ Your excellency, after our tireless preparation, training, and evaluation efforts, we– your humble workers, have deduced that the **Random Forest** model is perfect for this Royal Task. In search of the optimal model, we have brought forth four machine learning model options: Gradient Boosted Tress, K-Nearest Numbers, Logistic Regression, and Random Forest. We have trained and validated these models with a dataset we have refined to make the most accurate, unbiased, and precise predictions. After the initial training and testing, we have found out that in descending order the ones with the highest validation accuracy: GBTs, Logistic Regression, Random Forest, and lastly KNN. Even though GBT had the highest accuracy we have moved forth with hyperparameter tuning Random Forests and Logistic Regression as they were significantly more computationally efficient when compared to GBTs. Through our efforts of hyperparameter tune with the cross-examination methods we evaluated our refined models. We have found out that after extensive evaluations, though logistic regression had great accuracy, random forests dominated in predicting ability and accuracy in comparison. Thus, mi-lord, we have decided the Random Forest is the best model for your Highness’ Royal Task.
 
 ### 10) Our Expert Cut: How Can We Optimize Guild Prediction?
 
