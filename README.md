@@ -1,4 +1,5 @@
-# The Future of the Kingdom of Marendor 🔮
+
+## **<h3 align="center"> ★ The Future of the Kingdom of Marendor 🔮 ★ </h3>** 
 
 ### Team Members
 - Lina Kolevska
