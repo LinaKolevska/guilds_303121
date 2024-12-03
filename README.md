@@ -58,7 +58,7 @@ No **monarchical projects** go without meticulous preparation and pre-structurin
 
 
 
-### 2) Performing an extensive Exploratory Data Analysis: Broken Down in Parts
+## **<h3 align="center"> ★ 2) Performing an extensive Exploratory Data Analysis: Broken Down in Parts ★ </h3>** 
 #### Part I of Step 2:
 * 2.1.1) At this point, we have retrieved the basic information and distributions of our original dataset and decide to proceed with the cleaning and manipulation. We determined it necessary to copy the *original_data* into a dataframe; we call it **”df”**. This is accomplished with the *.copy( )* built-in. Again, this is done for future comparison and analysis amongst intervals of data modifications. 
 * 2.1.2) Previously identifying the target variable `Guild_Membership`, it is paramount that the status of this feature is not null for each examined Scholar. Thus, we remove the Scholars that have a missing membership status, allowing us to properly analyze and handle our task. To accomplish this we print the missing value count for each Scholar (each row), within the Guild Membership column. In the case that the value is missing, we drop it with a `.dropna(subset=[‘Guild_Membership’])`. To verify this removal, we print the summed Guild_membership missing values, post-removal. We began with **25,447** Scholars with zero Membership documentation, and prevailed with **0** undocumented Scholars. 
