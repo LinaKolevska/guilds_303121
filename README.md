@@ -223,6 +223,69 @@ As above in 3.1, we split the data into 20-80% of training and testing. The para
 
 
 ### 4) Training and Testing Models 
+* 4.1) Through anticipated research in preparation for this Royal Task, we determined the 4 most adequate models to complete a multi-class classification task, like our own. This led us on a vast journey, and we came to a conclusion of testing the following 4:
+	* 1) Gradient Boosted Trees
+	* 2) Random Forest
+	* 3) Logistic Regression
+	* 4) K-Nearest Neighbors (KNN) - with 5 neighbors
+The models are set in their own dictionary and we set a dictionary to store our results. 
+We establish a for loop and iterate over each key and value in the dictionary to train our four models. This simultaneously calculates a series of metrics.
+* Our output, for each model and its performance, is sectioned into 7 intersecting metrics:
+	`**Accuracy:**`
+		- Proportion of correctly predicted labels out of the total predictions.
+		- **Formula**: Accuracy = $\frac{Correct Predictions}{Total Predictions}$ 
+		- Represents overall performance but may not reflect model performance well in imbalanced datasets.
+	`**Precision:**` How many of the predicted positive results are correct?
+		**Formula**: Precision =  $\frac{True Positives}{True Positives + False Positives }$ The higher the precision, the fewer false positives predicted.
+	`**Recall (Sensitivity):**` How many of the real positive results were correctly identified.?
+		Formula: Recall= $\frac{True Positives}{True Positives + False Negatives }$ The higher the recall, the fewer false negatives predicted.
+	`**F1-Score:**` Calculates the harmonic mean of precision & recall.
+		Formula: F1=2 ×  $\frac{Precision × Recall}{Precision + Recall}$ 
+		When handling imbalanced datasets, F1 score helps to balance both metrics of assessment to provide a more calibrated result.. 
+	`**Support:**` The number of occurrences of each Guild Membership (3)  in the data.
+	`**Macro Average:**` Calculates the unweighted average of: precision, recall, & F1-score across all Guilds, testing to balance the significance of each class for comparison
+	`**Weighted Average:**`
+	Averages: precision, recall, & F1-score, this time taking into account the weights of each individual Guild.
+
+* **MODEL EVALUATION FROM FIRST RUN**:
+	- **1) Gradient Boosted Trees**:
+		- **Accuracy**: 65.6%
+		- **F1 Score – Based on Guild Membership**: 
+			* **No Guild**: 76%
+			* **Master Guild**: 60%
+			* **Apprentice Guild**: 1%
+		- **Macro Average**: 46%
+In terms of accuracy and weighted F1 score, this model performs the best overall. The model performs well for classifying the `No Guild` Scholars and `Master Guild` Scholars; however, it should be noted that the model heavily struggles with the `Apprentice Guild` class, along with the other models. GBT is successful at understanding complex dataset patterns but is highly receptive to imbalances in class, as seen within the individual Guild Membership performance. This type of model is much more suited for well-established and balanced classes.
+	- **2) Random Forest**:
+		- **Accuracy**: 64.2%
+		- **F1 Score – Based on Guild Membership**:
+			* **No Guild**: 75%
+			* **Master Guild**: 58% 
+			* **Apprentice Guild**: 2%
+		- **Macro Average**: 45%
+Random Forest performed slightly below GBT. It performed strongly for classifying the `No Guild` Scholars, and similarly for the `Master Guild`; however, struggles with the `Apprentice Guild`, similarly to Gradient Boosted Trees. In terms of Macro Average, Random Forests has a lower performance at 45%. This classifier works well with an imbalance dataset, like our own, but does not possess the boosting power that GBT has, though it is much quicker in terms of computation time.
+	- **1) Logistic Regression**:
+		- **Accuracy**: 64.6%
+		- **F1 Score – Based on Guild Membership**:
+			* **No Guild**: 75%
+			* **Master Guild**: 58%
+			* **Apprentice Guild**: 0%
+		- **Macro Average**: 45%
+Logistic Regression is much less granular and complex, and computes quickly. However, let it be known, that because it is so simple, it fails to classify the `Apprentice Guild` **at all**. Its overall precision, sensitivity, and F1 Scores for this class are all 0. As a model, Logistic Regression is linear and thus it poorly handles complex relationships and non-linear presences in datasets. This makes the classifier extremely sensitive the imbalance Guild Membership and needs tuning to improve its accuracy and performance.
+	- **1) K-Nearest Neighbors**:
+		- **Accuracy**: 60.1%
+		- **F1 Score – Based on Guild Membership**:
+			* **No Guild**: 73%
+			* **Master Guild**: 51%  
+			* **Apprentice Guild**: 6%
+		- **Macro Average**: 45%
+We immediately notice that of all accuracies, the KNN Classifier performs more poorly than the other 3 models. KNN as a classifier is dependent mostly on the parameters that have been chosen to tune its performance, because of this, it scales with struggle and cannot handle the dataset’s imbalance. This motivates us to drop this model from further consideration as a contender for hyperparameter tuning. KNN tends to overfit the training data and is much better suited for smaller, more elementary datasets. 
+
+* Though we have heavily reduced our dataset, it is clear that the models still suffer from the “imbalance” present. The excelling performance in the `No Guild` classifications prove that the amount of data this Guild has, in comparison with the rest, is dominating the training and testing. We notice that Gradient Boosting Trees, Random Forest, and Logistic Regression *outperform* KNN; GBT and Random Forest are more complex in nature, and Logistic Regression offers a competitive speed and simplicity. We will avoid KNN for its poor performance and vulnerability to the dataset’s dimensionality, and continue focusing on the **remaining 3 contenders:**
+- `Gradient Boosted Trees`
+- `Random Forest`
+- `Logistic Regression`
+
 
 ### 5) Plotting our Learning Curves
 
@@ -261,10 +324,16 @@ As above in 3.1, we split the data into 20-80% of training and testing. The para
 	* **KNN** also overfits and poorly generalizes along with its low performing accuracy
 
 
+### 6) Evaluating our Models:
+* #### **Attempt 1 **  
+* We chose to hyperparameter tune the following models: **Gradient Boosting Trees** (initially the best performer), **Random Forest** and **Logistic Regression**. 
+* During our first attempt to perform hyperparameter tuning on these models, we initially attempted to optimize Gradient Boosting Trees due to its promising accuracy during initial testing. However, in the tuning process we encountered significant challenges with the computational efficiency of performing **Grid Search** on **Gradient Boosting Trees**. Despite experimenting with various adjustments to lower the time it takes for the tuning process, the model's training time remained too long (shown in the screenshot below). Given that computational efficiency is a critical consideration in real-world applications, we made the decision to exclude Gradient Boosting Trees from further optimization. This allowed us to focus on the two remaining models, **Logistic Regression** and **Random Forest**, which demonstrated balanced performance and acceptable computational efficiency during the initial evaluation.This decision ensured that our workflow remained efficient while concentrating on models with a better balance of performance and practicality.
 
+* #### **Attempt 2:**  
+Following the initial training phase, we prioritized hyperparameter tuning for Logistic Regression and Random Forest. These models were selected due to their potential for improvement, coupled with their computational practicality, making them better suited for further refinement and optimization in this project. 
 
+* Another issue we encountered after the initial training of the models was their inability to effectively classify the minority class, **Apprentice Guild**. To address this, we decided to slightly oversample this class by adding 1,000 additional samples just before performing hyperparameter tuning on the models.
 
-### 6) Evaluating our Models
 
 ### 7.1) Problem Solving, Pre-Tune:
 #### **Attempt 1:**  
@@ -423,5 +492,71 @@ It is paramount that we visualize the impact of the hyperparameters on our Rando
  Your excellency, after our tireless preparation, training, and evaluation efforts, we– your humble workers, have deduced that the **Random Forest** model is perfect for this Royal Task. In search of the optimal model, we have brought forth four machine learning model options: Gradient Boosted Tress, K-Nearest Numbers, Logistic Regression, and Random Forest. We have trained and validated these models with a dataset we have refined to make the most accurate, unbiased, and precise predictions. After the initial training and testing, we have found out that in descending order the ones with the highest validation accuracy: GBTs, Logistic Regression, Random Forest, and lastly KNN. Even though GBT had the highest accuracy we have moved forth with hyperparameter tuning Random Forests and Logistic Regression as they were significantly more computationally efficient when compared to GBTs. Through our efforts of hyperparameter tune with the cross-examination methods we evaluated our refined models. We have found out that after extensive evaluations, though logistic regression had great accuracy, random forests dominated in predicting ability and accuracy in comparison. Thus, mi-lord, we have decided the Random Forest is the best model for your Highness’ Royal Task.
 
 ### 10) Our Expert Cut: How Can We Optimize Guild Prediction?
+### 10) Our Expert Cut: How Can We Optimize Guild Prediction?
+We’ve trekked through our long, vast journey, and we reach our final interval of destinations. In this section, we aim to understand the underlying significances, associations, and trends that a surface-level exploration fails to capture. 
+#### We go beyond our Royal Contract, and delve even deeper into the *UNKNOWN*...
+* We begin by targeting our top contending classifiers to revisit our explorations, and understand the intricate relationships between all of our Scholars’ features and characteristics so that we can better improve prediction for the Kingdom!
+* 1) With our Feature Importance Identification, we designed this function of deepening to extract and conceptualize the score of importance for each Scholar feature. Our plots sort the features by importance, returns this DataFrame, and extracts this importance to be mapped. We decided that identifying the Top 10 most important features was a paramount strategy to assist in the final most serious and accurate predictions. We fit the Random Forest Classifier with our top-picked hyperparameters and retrieved the feature importance scores. By forming a dataframe cataloging the feature names with their importance scores, we sorted them in descending order, with the most important ones prevailing on top. We proceed to plot them in a horizontal bar chart and can this simply and spatially understand the ranges of importance, just within this Top 10 exposition. 
+* **Our Observations**: 
+* `Fae Dust Reserve` is our most influential feature, by far. This is then followed by `Mystic Energy Level`, and `Mystical Index`. These are features that are closely related to a metric of magic, a trait that seems to be heavily deterministic for predicting Guild classes. One can assume that a certain amount of mystical powers/abilities are strong indicators of “legacy” for entering a certain guild. This presence leads us to assume that this mystical set of traits could transcend possible discrepancies in perfect stamina, health, or physical capabilities, as magical consistency acts potentially as a function of mystical “nepotism”, so to speak. Let’s break down these importances:
+
+**You have entered the Black Market**
+* **Welcome to our Inside Scoop: *Scholar Counseling Services***
+* **CAUTION: THIS IS NOT KINGDOM-CERTIFIED; USE AT YOUR OWN RISK!**
+You may… or may not have what it takes to reach your shining Master Guild goal. But if you follow our empirically-based evidence, you can “insider-trade” your way into your dreams! Yes, take *heavy* precaution, as this isn’t too legal, but can give you extreme, advanced insight into tried-and-true results. 
+The most determinant features, according to a finely-tuned algorithm model (Random Forest), tells our black-market researchers that access to magical resources and power, as well as access to rare mystical elements, is highly indicative in classification motivation. 
+* *From the Village Gossip*:  A little birdie told us that Scholars with higher power reserves are much more likely to be placed in higher guilds. Are you stuck without a Guild to your name? Do not fret! You can stop disappointing your family members and find a connection to increase your access to these rare resources. **Contact us if you’re willing to take the risk!**
+Don’t say we didn’t warn you, some traits are just too hard to attain, even through the black market. Our researchers have informed us that Mystic Energy Levels, or your internal capacity for magic is a near direct reflection of your proficiency to perform dangerous magical tasks. Sorry not sorry if you aren’t blessed with this trait –you can try to maximize your potential with the next piece of advice.
+* Mystical Indexes can be optimized with non-stop training and effort. If you practice 24/7, we have faith in you, dear Scholar! The higher your composite score of magical skill, the more inclined the Classifiers are to believe that you possess this “inner talent”.... They don’t have to know the truth though– work hard and dreams can come true!
+
+* **The Less Important Scoop**:
+* In less important, and easily-accessible, around-the-bush advice, the more wise you are, the more likely you are to be highly-ranked. This is just a fact– call it ageist; however, you older folks might love this piece of information!
+* And to everyone’s knowledge, you must **always** exercise! Healthy meals and physical training end up having some kind of impact on your Guild Membership. 
+* Though you, dear Reader, are on the black market searching for help, I will inform you that Knightly Valor is a great attribute for classification. If you represent courage, integrity, and leadership, you increase your chances to enter the **Master Guild**! *What are you doing here, anyway. Stop breaking the rules! Maybe that’s why you haven’t entered the top Guild yet!*
+
+**You have exited the Black Market**
+
+* 2) Top Features and their Boxplots, associated by Guild Membership. We felt compelled to justify our actions, as to be completely in line with our Royal Contract. In an effort to further support our selection of the Random Forest Classifier as our best performing model, we decided to visually conceptualize the distribution of the top 3 important features, sorted by class. These box plots provide a clear understanding of how these features impact the Guild Membership. 
+* Our observations:
+* It must be noted that in this kind of exploration, there is a slight competition of the Mystical Index amongst the others, in influence for the Guild classifications. 
+* It must also be noted that the overlap between the Fae Dust Reserve and the Mystic Energy Levels explain that there are very subtle interactions among features, in terms of predicting classes. This is **precisely** WHY we chose the Random Forest model for prediction! Its complex nature and ability to sift through intricate, non-linear relationships are direct reasons to justify our final decision with the `Random Forest`!
+* 3) Evaluating our previous Top 2 Contenders to continue justifying, in empirical comparisons, as to why Random Forest is the best choice in every case! We conducted these comparisons based on:
+* `Mean Squared Error (MSE)`: to see how similar the predictions were to the actual values, with a lower value being a closer result!
+* `R^2 Score`: showing us how successful the model is at defining variance in the Guild Membership (target variable), with higher values being the most accurate.
+* `Runtime`: computational time
+* Our observations: 
+**MSE Values**: 
+- Random Forest: low MSE in comparison
+- Logistic Regression: higher than Random Forest, proving it does not predict as well
+**R^2 Scores**: 
+- Random Forest: achieves a high score, proving that it can define much more variance within our complex dataset, and is able to identify relationships in our target variable.
+- Logistic Regression: lower score, indicating that this model is likely underfitting and not adept at defining variance.
+* These metrics are obviously significant to further clarify our assurance and confidence in selecting Random Forest as our **crowned** model! 
+* Though Random Forest takes slightly more time to compute, we must prioritize all of these accuracies and performance statistics over simple rate of speed. This demonstrates our understanding and grounded decision-making. 
+
+* 4) We wanted to capture global data variance in a lower-dimension space, and visualize linear transformations from our covariance matrix. We were able to accomplish this with Principal Component Analysis (PCA). We project our X features into 2D with Principal Component 1 and 2. We then output  a scatter plot to highlight how the data points shift away from each other by the Membership classification within this reduced space. We print our important features and delineate them from the total number of features. By visualizing this Guild separation, we can understand how well it was completed.
+* Our observations: 
+- We notice significant overlap between the 3 Guilds in our transformed space. From this we can gather that the memberships are not entirely linearly separable based on the Features the Kingdom supplied us with. 
+- This tells us that Apprentices, and even non-ranked Scholars have a somewhat chance to reach a Master Guild status, leaving them with more hope! However, this also indicates that Master Scholars have extra special or enhanced qualities within these features to have accessed their status. 
+- **Though they overlap**, we can determine that some trends in this plot prove that Scholars closer to a chance to be in the Master Guild (green cluster) in this PCA display have decently “aligned” profiles with those already in the Master Guild, insinuating that they have potential to enter the Master Guild soon. 
+
+* **ATTENTION ASPIRING SCHOLARS**:
+* You must enhance your key/critical powers and strengths that are similar to your Master Guild colleagues and counterparts.
+* Analyze the routines and trends that your Master Scholar friends follow, and you could improve your chance to be one of them soon!
+
+
+
+## **<h2 align="center"> ★ THE TASK IS DONE 🔮 ★ </h2>** 
+
+In the mystical realm of **Marendor**, where the winds whisper ancient secrets and the stars chart the destiny of wizards, a monumental task was bestowed upon us: to uncover the chosen few worthy of ascending to the illustrious **Master Guild** of Magic. Through the merging of wisdom, innovation, and tireless determination, we have brought forth a masterpiece of predictive science—a system that unravels the mysteries of guild membership with unparalleled precision.
+Our journey began with the raw, unrefined tales of thousands of scholars, each carrying their hopes, dreams, and magical potential within the folds of data. We embarked on a meticulous quest to transform this chaos into clarity, wielding the finest tools of data science like enchanted relics of old. Through the alchemy of correlation analysis, chi-squared tests, and outlier detection, we polished the hidden gems of information, shaping a dataset worthy of royal scrutiny.
+At the heart of our endeavor stood the **Random Forest**, the crown jewel of machine learning models. Like a wise and just arbiter, it emerged victorious from trials against formidable adversaries—**Gradient Boosted Trees, Logistic Regression, and K-Nearest Neighbors**. Through rigorous training, validation, and the arcane art of hyperparameter tuning, the **Random Forest** proved its mettle, illuminating the path to the Master Guild with unwavering accuracy and adaptability.
+As we delved deeper into the mystical web of scholar attributes, certain traits revealed their true power: the ethereal **Fae Dust Reserve**, the boundless **Mystic Energy Level**, and the enigmatic **Mystical Index**. These features, akin to the ancient runes etched into the stones of Marendor, held the secrets to guild membership, transcending the mundane and guiding us toward the truly gifted.
+But our work did not stop at mere prediction. With the precision of a master cartographer, we charted the intricate relationships between a scholar’s traits and their magical destiny. Each insight became a beacon, shedding light on the qualities that distinguish the worthy from the rest and offering a roadmap for the kingdom's future.
+This is not just a dataset system—it is a legacy. A dynamic, ever-adaptive framework that ensures the Master Guild of Magic will be graced by the most deserving wizards, while fostering a culture of excellence and ambition within the magical community. With this system in place, the kingdom of Marendor now stands at the precipice of a golden age, where data and magic unite to secure its future.
+Your Majesty, we have not only fulfilled the royal decree but have elevated it to a masterpiece of innovation and foresight. The Master Guild will no longer be shrouded in mystery; its gates will open only to those truly destined to lead. And as the sun sets on this chapter, the kingdom shines brighter than ever, its future etched in the stars and guided by the wisdom of data.
+### **Long live the King, and may the magic of Marendor prosper for eternity!**
+
+
 
 
