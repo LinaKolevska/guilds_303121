@@ -87,7 +87,56 @@ No **monarchical projects** go without meticulous preparation and pre-structurin
 
 ### 6) Evaluating our Models
 
-### 7) Hyperparameter Tuning
+### 7.1) Problem Solving, Pre-Tune:
+#### ** Attempt 1: **  
+We chose to hyperparameter tune the following models: **Gradient Boosting Trees** (initially the best performer), **Random Forest** and **Logistic Regression**. 
+During our first attempt to perform hyperparameter tuning on these models, we initially attempted to optimize Gradient Boosting Trees due to its promising accuracy during initial testing. However, in the tuning process we encountered significant challenges with the computational efficiency of performing **Grid Search** on **Gradient Boosting Trees**. Despite experimenting with various adjustments to lower the time it takes for the tuning process, the model's training time remained too long (shown in the screenshot below). Given that computational efficiency is a critical consideration in real-world applications, we made the decision to exclude Gradient Boosting Trees from further optimization. This allowed us to focus on the two remaining models, **Logistic Regression** and **Random Forest**, which demonstrated balanced performance and acceptable computational efficiency during the initial evaluation.This decision ensured that our workflow remained efficient while concentrating on models with a better balance of performance and practicality.
+<img width="566" alt="Screenshot 2024-12-03 at 22 55 45" src="https://github.com/user-attachments/assets/ab17b54d-24fe-43b1-a4a8-53dcee1b8c4a">
+
+####** Attempt 2: **  
+Following the initial training phase, we prioritized hyperparameter tuning for Logistic Regression and Random Forest. These models were selected due to their potential for improvement, coupled with their computational practicality, making them better suited for further refinement and optimization in this project. 
+
+Another issue we encountered after the initial training of the models was their inability to effectively classify the minority class, **Apprentice Guild**. To address this, we decided to slightly oversample this class by adding 1,000 additional samples just before performing hyperparameter tuning on the models.
+
+### 7.2) Hyperparameter Tuning
+####Logistic Regression
+We chose this model due to its simplicity, computational efficiency, and stable performance during initial testing. The tuning process aimed to optimize:
+**Regularization Strength (`C`)**: Adjusted to find the optimal trade-off between underfitting and overfitting. 
+**Solver**: Explored options like `lbfgs` and `saga` to handle the multi-class nature of the problem effectively. 
+**Maximum Iterations (`max_iter`)**: Increased to ensure convergence for the high-dimensional dataset.
+**RESULTS:**
+**The best parameters obtained: **  `C: 10`, `solver: lbfgs`, `max_iter: 500`
+**Cross-validation accuracy**: Improved to **62.46%**, a slight increase from the initial performance. 
+**Training time**: Highly efficient (~4.49 seconds)
+**Analysis**: The optimized Logistic Regression model maintained its computational efficiency while achieving a modest improvement in performance. 
+
+A.1 **Warnings in Logistic Regression Hyperparameter Tuning**
+During the hyperparameter tuning phase for Logistic Regression, we encountered `ConvergenceWarning` messages. These warnings typically indicate that the optimization process did not fully converge within the specified maximum number of iterations (`max_iter`).
+The warnings are triggered during the exploration of certain parameter combinations in the grid, particularly those involving high regularization (`C`) or specific solvers like `saga`. These combinations require more iterations to converge due to the complexity of the optimization problem. 
+**Impact on Results: ** The presence of `ConvergenceWarning` during hyperparameter tuning does not invalidate the results:
+The best parameter combination (`C=10`, `solver=lbfgs`, `max_iter=500`) was selected after careful cross-validation and is unaffected by these warnings. 
+The warnings are an indication of computational inefficiency in exploring specific parameter combinations rather than errors in the tuning process.
+
+
+#### Random Forest
+This model demonstrated strong potential during initial testing but exhibited signs of overfitting, which is indicated by a significant gap between training and validation accuracy. By hyperparameter tuning this model we aimed to improve its generalization by optimizing the following parameters: 
+**Number of Trees (`n_estimators`)**: Adjusted to balance accuracy and runtime. 
+**Tree Depth (`max_depth`)**: Limited to prevent overfitting. 
+**Minimum Samples per Split (`min_samples_split`)** and **Leaf (`min_samples_leaf`)**: Tuned to optimize the tree-splitting process. 
+**Features Considered per Split (`max_features`)**: Explored to enhance feature selection at each node.
+**RESULTS:**
+**Initial Randomized Search**: 
+**Best Parameters**: `n_estimators: 100`, `max_depth: 20`, `min_samples_split: 5`, `min_samples_leaf: 1`, `max_features: log2` 
+**Cross-validation accuracy**: Improved to **70.93%**. 
+**Training time**: ~74.69 seconds.
+**Final Grid Search**:
+**Best Parameters**: `n_estimators: 150`, `max_depth: None`, `min_samples_split: 4`, `min_samples_leaf: 1`, `max_features: log2` 
+**Cross-validation accuracy**: Further improved to **71.22%**. 
+**Training time**: ~107.93 seconds.
+**Analysis**: The tuning process significantly improved Random Forest’s performance, reducing overfitting and enhancing its ability to generalize. By comparing the Randomized Search and the Grid Search we notice that the combination of increased tree depth and fine-tuned splitting parameters allowed the model to better capture the dataset's complexities. However, the computational cost of the final grid search was notably higher than the randomized search, highlighting a trade-off between performance and runtime. 
+
+We use these optimized parameters for further model training and evaluation.
+
 
 ### 8) Hyperparameter Sensitivity Analysis:
 
