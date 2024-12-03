@@ -163,7 +163,7 @@ We adjust the lists by moving the target column, `Guild_Membership_encoded`, to 
 As the final step, we displayed the updated column lists for final verification.
 
 #### Part VI of Step 2: Identifying correlations and distributions of relevant features for categorization
-*2.6.1) Checking for outliers and handling them in a way that the once that are on above the plot distribution  we set as the highest value within the plot and the once under we set as the lowest value within the plot.
+* 2.6.1) Checking for outliers and handling them in a way that the once that are on above the plot distribution  we set as the highest value within the plot and the once under we set as the lowest value within the plot.
 Before checking for outliers we created a copy of the dataset to only show the outliers but then we proceeded to alter the `df_balanced` when handling them. The handling methods involve capping outliers to the nearest acceptable values based on the IQR.
 
 <img width="1242" alt="Screenshot 2024-12-03 at 23 37 55" src="https://github.com/user-attachments/assets/d0301a9b-45cc-460e-a943-c064058898cd">
@@ -187,8 +187,9 @@ We visualize the distribution of each feature in the dataset (`df_balanced`) acr
 * Features with Distinct Separations: Features like `General_Health_Condition`, `Royal_family_pressure_Presence`, and `High_willingness_Presence` show noticeable differences in distribution between guild membership categories. For example: `The Royal_family_pressure_Presence` and `High_willingness_Presence` distributions suggest these traits are more prominent for specific guild categories.
 * Features with Similar Distributions: Features such as `Mystic_Energy_Level` and `Knightly_Valor` appear to have overlapping distributions across guild membership categories. These might not provide much discriminatory power for classification.
 Skewed Features: Certain features, like `Gold_Pouches_Per_Year` and `Level_of_Academic_Wisdom`, exhibit skewed distributions. `Gold_Pouches_Per_Year` likely shows a right-skewed distribution, as most guild members/ the population have low or moderate gold reserves, with very few having extremely high values.
-*2.6.3) Plotting correlation heatmaps for each unique value within the Guild Membership column (0,1,2) to show how each feature correlates to the classification of each respective scholar
+* 2.6.3) Plotting correlation heatmaps for each unique value within the Guild Membership column (0,1,2) to show how each feature correlates to the classification of each respective scholar
 We generate a heatmap for each guild membership type with the `unique()` method. Firstly, we make a subset `guild_data` to include only rows corresponding to the current `guild` category which is used to calculate correlations.
+<img width="1343" alt="Screenshot 2024-12-03 at 23 34 51" src="https://github.com/user-attachments/assets/20602f0d-0696-4e9f-a5ac-19cf50d6550e">
 
 Most Relevant Features for Classification
 
@@ -443,6 +444,7 @@ We define the two models with `models_with_best_params` in which the models are 
 - Lastly, Logistic Regression struggled significantly with the minority class (Class 2), leading to lower overall performance. It especially has lower performance than random forest.
 
 #### Graph Observations
+<img width="803" alt="Screenshot 2024-12-03 at 23 28 05" src="https://github.com/user-attachments/assets/7143f1dd-e188-47eb-abe4-d819443a6fe1">
 
 1. ##### Random Forest
 The curve is closer to the top-left corner of the plot, indicating high sensitivity (**True Positive Rate**) at lower False Positive Rates.
@@ -452,6 +454,7 @@ The curve is less steep and farther from the top-left corner compared to Random 
 
 ### 9) Hyperparameter Sensitivity Analysis:
 It is paramount that we visualize the impact of the hyperparameters on our Random Forest Classifier’s training and test scores with line plots. This is completed by finding the mean scores for varying values of the number of trees in the forest (`n_estimators`), the maximum depth of the trees (`max_depth`), (`min_samples_split`) the minimum number of samples required to split an internal node, (`min_samples_leaf`) the minimum number of samples required to be in a leaf node, and (`max_features`) the maximum number of features considered for splitting a node. This step allows us to see how increasing the number of trees or adjusting the depth of the trees affects model performance (under vs. overfitting), The key hyperparameters are derived from the cross-examination portion of hyperparameter tuning of Random Forest via Randomized and Grid search. For the code, we use Randomized search to see how the ideal parameters for Gridsearch were chosen, then we see the fine-tuning of Gridsearch in the parameters.
+<img width="738" alt="Screenshot 2024-12-03 at 23 28 28" src="https://github.com/user-attachments/assets/52832653-203c-4d66-8c66-a359a0738b2e">
 
 #### **Randomized Search**
 - `n_estimators`: 
@@ -470,6 +473,7 @@ It is paramount that we visualize the impact of the hyperparameters on our Rando
     - Training Score: The training accuracy increases as the number of features considered for splits grows (`sqrt to log2`). This happens because more features allow the model to fit the training data more precisely.
     - Test Score: Test accuracy also improves as max_features increases, with the model achieving the best balance at `log2`. This suggests that considering more features helps the model generalize better without overfitting.
 
+<img width="738" alt="Screenshot 2024-12-03 at 23 28 32" src="https://github.com/user-attachments/assets/915af8d5-91c4-421e-a067-cd0fd806bc73">
 
 #### **Grid search**
 - `n_estimators`: 
@@ -495,7 +499,6 @@ It is paramount that we visualize the impact of the hyperparameters on our Rando
 ### Which is the **Best Model** to Complete the Royal Task?
  Your excellency, after our tireless preparation, training, and evaluation efforts, we– your humble workers, have deduced that the **Random Forest** model is perfect for this Royal Task. In search of the optimal model, we have brought forth four machine learning model options: Gradient Boosted Tress, K-Nearest Numbers, Logistic Regression, and Random Forest. We have trained and validated these models with a dataset we have refined to make the most accurate, unbiased, and precise predictions. After the initial training and testing, we have found out that in descending order the ones with the highest validation accuracy: GBTs, Logistic Regression, Random Forest, and lastly KNN. Even though GBT had the highest accuracy we have moved forth with hyperparameter tuning Random Forests and Logistic Regression as they were significantly more computationally efficient when compared to GBTs. Through our efforts of hyperparameter tune with the cross-examination methods we evaluated our refined models. We have found out that after extensive evaluations, though logistic regression had great accuracy, random forests dominated in predicting ability and accuracy in comparison. Thus, mi-lord, we have decided the Random Forest is the best model for your Highness’ Royal Task.
 
-### 10) Our Expert Cut: How Can We Optimize Guild Prediction?
 ### 10) Our Expert Cut: How Can We Optimize Guild Prediction?
 We’ve trekked through our long, vast journey, and we reach our final interval of destinations. In this section, we aim to understand the underlying significances, associations, and trends that a surface-level exploration fails to capture. 
 #### We go beyond our Royal Contract, and delve even deeper into the *UNKNOWN*...
