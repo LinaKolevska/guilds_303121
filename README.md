@@ -110,22 +110,26 @@ As above in 3.1, we split the data into 20-80% of training and testing. The para
    - **1) Gradient Boosted Trees:**
       * **Training accuracy**: scores initially perform well, resulting with a score upwards of 76%, however, as the training set size begins to grow in proportion, the accuracy drastically decreases and levels out around the 80% training set size to a mid-late 60s percentage of accuracy
       * **Validation accuracy**: has a seemingly opposite trend, mirroring the training accuracy, but on a less dramatic scale. The accuracy begins below 62% and rises to nearly 66%, eventually plateauing at that accuracy score.
-      * **Analysis:** *LET IT BE KNOWN*: This model has a significantly longer runtime, deeming it inefficient in comparison, in terms of computation time and execution. This completely impacts our model selection for future hyperparameter tuning.
+      * **Analysis:** *LET IT BE KNOWN*: This model has a significantly longer runtime, deeming it inefficient in comparison, in terms of computation time and execution. This completely impacts our model selection for future hyperparameter tuning.![14ea4abf-8897-4e2f-ad8c-74b1009f1a74](https://github.com/user-attachments/assets/5a4bbf3a-5b76-4964-9e13-d8f9dc1024df)
+
 
    - **2) Random Forest:**
       * **Training accuracy**: here begins at an extreme accuracy of 100%, and remains there
       * **Validation accuracy**: begins inaccurately around 63% and proceeds to remain about that percentage.
-      * **Analysis**: These results are clearly insinuating that the model is **highly overfitting** the data and outputting skewed accuracies for the training sets, a matter that must be fixed for proper evaluation.
+      * **Analysis**: These results are clearly insinuating that the model is **highly overfitting** the data and outputting skewed accuracies for the training sets, a matter that must be fixed for proper evaluation.![258f5df8-c997-410d-a1f1-b86c75328dec](https://github.com/user-attachments/assets/5633b212-8b3d-4ee4-b1b6-16ca8de3e9b2)
+
 
    - **3) Logistic Regression:**
       * **Training accuracy**: here commences at 64.4% and reaches a minimal high point at 65.1% around a 70% training set size proportion. Because this variation is minimal, the Learning Curve is plotted on a much smaller grid size, with smaller units. 
       * **Validation accuracy**: begins lower, at about 64.1% accuracy, and reaches a maximum height at 64.6% accuracy when the training set proportion is at 100%.
-      * **Analysis**:  Both of these accuracies remain relatively low and indicate that the model might be too superficial to actually contextualize the complex dataset (underfitting). Though the gap between accuracies is much smaller than the first two, indicating success with overall generalization, the model still doesn’t perform well enough for this kind of task.
+      * **Analysis**:  Both of these accuracies remain relatively low and indicate that the model might be too superficial to actually contextualize the complex dataset (underfitting). Though the gap between accuracies is much smaller than the first two, indicating success with overall generalization, the model still doesn’t perform well enough for this kind of task.![ce9fab08-0b95-4a91-a5db-b241324508b6](https://github.com/user-attachments/assets/284a3222-c310-4c12-8871-def21eed36a5)
+
   
   - **4) K-Nearest Neighbors:**
      * **Training accuracy**: Begins at about 70% and remains consistent here as the training set proportion grows.
      * **Validation accuracy**: begins lower at about 60%, and fluctuates,, in slight as the proportion of training set size increases, but only peaks at 62% and declines back down to 60.5%
      * **Analysis**:  There is a notable gap between these two accuracies, and this leads to an assumption that this model overfits the given data. Though the model can properly memorize the data of the training set, it has complications generalizing the yet-to-be-seen validation data. 
+![2acbbc1e-b155-495c-b7be-2f97a9888ea3](https://github.com/user-attachments/assets/9ad00ac6-e2f9-4211-82cf-a419603db681)
 
 **INSIGHT**: 
 * Here, we focus on understanding how the models perform relative to our split set proportions. The learning curves display how the training/validation accuracies fluctuate as the training set size grows. These plots are very indicative for our models, explaining how exactly our data size affects our models and their ability to perform on our designated data.
@@ -133,6 +137,8 @@ As above in 3.1, we split the data into 20-80% of training and testing. The para
 	* **Random Forest** is very susceptible to overfitting without tuning/regularization.
 	* **Logistic Regression** is too far too linear/simple and underfits the data, though it shows strong generalization.
 	* **KNN** also overfits and poorly generalizes along with its low performing accuracy
+
+
 
 
 
