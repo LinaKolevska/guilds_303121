@@ -506,6 +506,7 @@ We’ve trekked through our long, vast journey, and we reach our final interval 
 * 1) With our Feature Importance Identification, we designed this function of deepening to extract and conceptualize the score of importance for each Scholar feature. Our plots sort the features by importance, returns this DataFrame, and extracts this importance to be mapped. We decided that identifying the Top 10 most important features was a paramount strategy to assist in the final most serious and accurate predictions. We fit the Random Forest Classifier with our top-picked hyperparameters and retrieved the feature importance scores. By forming a dataframe cataloging the feature names with their importance scores, we sorted them in descending order, with the most important ones prevailing on top. We proceed to plot them in a horizontal bar chart and can this simply and spatially understand the ranges of importance, just within this Top 10 exposition. 
 * **Our Observations**: 
 * `Fae Dust Reserve` is our most influential feature, by far. This is then followed by `Mystic Energy Level`, and `Mystical Index`. These are features that are closely related to a metric of magic, a trait that seems to be heavily deterministic for predicting Guild classes. One can assume that a certain amount of mystical powers/abilities are strong indicators of “legacy” for entering a certain guild. This presence leads us to assume that this mystical set of traits could transcend possible discrepancies in perfect stamina, health, or physical capabilities, as magical consistency acts potentially as a function of mystical “nepotism”, so to speak. Let’s break down these importances:
+<img width="1021" alt="Screenshot 2024-12-04 at 00 04 48" src="https://github.com/user-attachments/assets/95011c36-e87b-47f4-aaea-8c3f8ee7bfbb">
 
 **You have entered the Black Market**
 * **Welcome to our Inside Scoop: *Scholar Counseling Services***
@@ -527,6 +528,9 @@ Don’t say we didn’t warn you, some traits are just too hard to attain, even 
 * Our observations:
 * It must be noted that in this kind of exploration, there is a slight competition of the Mystical Index amongst the others, in influence for the Guild classifications. 
 * It must also be noted that the overlap between the Fae Dust Reserve and the Mystic Energy Levels explain that there are very subtle interactions among features, in terms of predicting classes. This is **precisely** WHY we chose the Random Forest model for prediction! Its complex nature and ability to sift through intricate, non-linear relationships are direct reasons to justify our final decision with the `Random Forest`!
+<img width="1021" alt="Screenshot 2024-12-04 at 00 05 42" src="https://github.com/user-attachments/assets/b323a4a1-cc58-43fa-98d4-70db7c503e46">
+
+
 * 3) Evaluating our previous Top 2 Contenders to continue justifying, in empirical comparisons, as to why Random Forest is the best choice in every case! We conducted these comparisons based on:
 * `Mean Squared Error (MSE)`: to see how similar the predictions were to the actual values, with a lower value being a closer result!
 * `R^2 Score`: showing us how successful the model is at defining variance in the Guild Membership (target variable), with higher values being the most accurate.
@@ -546,6 +550,7 @@ Don’t say we didn’t warn you, some traits are just too hard to attain, even 
 - We notice significant overlap between the 3 Guilds in our transformed space. From this we can gather that the memberships are not entirely linearly separable based on the Features the Kingdom supplied us with. 
 - This tells us that Apprentices, and even non-ranked Scholars have a somewhat chance to reach a Master Guild status, leaving them with more hope! However, this also indicates that Master Scholars have extra special or enhanced qualities within these features to have accessed their status. 
 - **Though they overlap**, we can determine that some trends in this plot prove that Scholars closer to a chance to be in the Master Guild (green cluster) in this PCA display have decently “aligned” profiles with those already in the Master Guild, insinuating that they have potential to enter the Master Guild soon. 
+<img width="1021" alt="Screenshot 2024-12-04 at 00 03 45" src="https://github.com/user-attachments/assets/2de631ed-44eb-424c-b25c-77fb31e8999e">
 
 * **ATTENTION ASPIRING SCHOLARS**:
 * You must enhance your key/critical powers and strengths that are similar to your Master Guild colleagues and counterparts.
