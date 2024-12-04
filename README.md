@@ -545,7 +545,8 @@ Evaluating our previous Top 2 Contenders to continue justifying, in empirical co
 			- Random Forest: achieves a high score, proving that it can define much more variance within our complex dataset, and is able to identify relationships in our target variable.
 			- Logistic Regression: lower score, indicating that this model is likely underfitting and not adept at defining variance.
 * These metrics are obviously significant to further clarify our assurance and confidence in selecting Random Forest as our **crowned** model! 
-* Though Random Forest takes slightly more time to compute, we must prioritize all of these accuracies and performance statistics over simple rate of speed. This demonstrates our understanding and grounded decision-making. 
+* Though Random Forest takes slightly more time to compute, we must prioritize all of these accuracies and performance statistics over simple rate of speed. This demonstrates our understanding and grounded decision-making.
+  <img width="876" alt="Screenshot 2024-12-04 at 01 20 06" src="https://github.com/user-attachments/assets/934dfc87-9ed8-441a-b4ef-61e71c912245">
 
 * ### 4) DIMENSIONALITY REDUCTION: Understanding Variance and Feature Separation
 * We wanted to capture global data variance in a lower-dimension space, and visualize linear transformations from our covariance matrix. We were able to accomplish this with Principal Component Analysis (PCA). We project our X features into 2D with Principal Component 1 and 2. We then output  a scatter plot to highlight how the data points shift away from each other by the Membership classification within this reduced space. We print our important features and delineate them from the total number of features. By visualizing this Guild separation, we can understand how well it was completed.
