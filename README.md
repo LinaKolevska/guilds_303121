@@ -329,18 +329,19 @@ We immediately notice that of all accuracies, the KNN Classifier performs more p
 	* **KNN** also overfits and poorly generalizes along with its low performing accuracy
 
 ## **<h4 align="center"> ★ 6) Problem Solving, Pre-Tune: 🚨 ★ </h4>** 
-* **7.1) Attempts at Mitigating Issues**
-	* ### **Attempt 1:**  
+* #### **Attempts at Mitigating Issues**
+### **Attempt 1:**  
 We chose to hyperparameter tune the following models: **Gradient Boosting Trees** (initially the best performer), **Random Forest** and **Logistic Regression**. 
 During our first attempt to perform hyperparameter tuning on these models, we initially attempted to optimize Gradient Boosting Trees due to its promising accuracy during initial testing. However, in the tuning process we encountered significant challenges with the computational efficiency of performing **Grid Search** on **Gradient Boosting Trees**. Despite experimenting with various adjustments to lower the time it takes for the tuning process, the model's training time remained too long (shown in the screenshot below). Given that computational efficiency is a critical consideration in real-world applications, we made the decision to exclude Gradient Boosting Trees from further optimization. This allowed us to focus on the two remaining models, **Logistic Regression** and **Random Forest**, which demonstrated balanced performance and acceptable computational efficiency during the initial evaluation.This decision ensured that our workflow remained efficient while concentrating on models with a better balance of performance and practicality.
 <img width="566" alt="Screenshot 2024-12-03 at 22 55 45" src="https://github.com/user-attachments/assets/ab17b54d-24fe-43b1-a4a8-53dcee1b8c4a">
-	* ### **Attempt 2:**  
+
+### **Attempt 2:**  
 Following the initial training phase, we prioritized hyperparameter tuning for Logistic Regression and Random Forest. These models were selected due to their potential for improvement, coupled with their computational practicality, making them better suited for further refinement and optimization in this project. 
 
 Another issue we encountered after the initial training of the models was their inability to effectively classify the minority class, **Apprentice Guild**. To address this, we decided to slightly oversample this class by adding 1,000 additional samples just before performing hyperparameter tuning on the models.
 
 ## **<h4 align="center"> ★ 7) Hyperparameter Tuning: 📐 ★ </h4>** 
-* #### 1) Logistic Regression
+* #### 7.1) Logistic Regression
 We chose this model due to its simplicity, computational efficiency, and stable performance during initial testing. The tuning process aimed to optimize:
 	* **Regularization Strength (`C`)**: Adjusted to find the optimal trade-off between underfitting and overfitting. 
 	* **Solver**: Explored options like `lbfgs` and `saga` to handle the multi-class nature of the problem effectively. 
@@ -351,14 +352,14 @@ We chose this model due to its simplicity, computational efficiency, and stable 
 		* **Training time**: Highly efficient (~4.49 seconds)
 		* **Analysis**: The optimized Logistic Regression model maintained its computational efficiency while achieving a modest improvement in performance. 
 
-* **7.1) Warnings in Logistic Regression Hyperparameter Tuning**
+* **7.1.2) Warnings in Logistic Regression Hyperparameter Tuning**
 	* During the hyperparameter tuning phase for Logistic Regression, we encountered `ConvergenceWarning` messages. These warnings typically indicate that the optimization process did not fully converge within the specified maximum number of iterations (`max_iter`).
 	* The warnings are triggered during the exploration of certain parameter combinations in the grid, particularly those involving high regularization (`C`) or specific solvers like `saga`. These combinations require more iterations to converge due to the complexity of the optimization problem. 
 	* **Impact on Results: ** The presence of `ConvergenceWarning` during hyperparameter tuning does not invalidate the results:
 	* The best parameter combination (`C=10`, `solver=lbfgs`, `max_iter=500`) was selected after careful cross-validation and is unaffected by these warnings. 
 The warnings are an indication of computational inefficiency in exploring specific parameter combinations rather than errors in the tuning process.
 
-* #### 2) Random Forest
+* #### 7.2) Random Forest
 	* This model demonstrated strong potential during initial testing but exhibited signs of overfitting, which is indicated by a significant gap between training and validation accuracy. By hyperparameter tuning this model we aimed to improve its generalization by optimizing the following parameters: 
 	* **Number of Trees (`n_estimators`)**: Adjusted to balance accuracy and runtime. 
 	* **Tree Depth (`max_depth`)**: Limited to prevent overfitting. 
@@ -376,7 +377,6 @@ The warnings are an indication of computational inefficiency in exploring specif
 		* **Analysis**: The tuning process significantly improved Random Forest’s performance, reducing overfitting and enhancing its ability to generalize. By comparing the Randomized Search and the Grid Search we notice that the combination of increased tree depth and fine-tuned splitting parameters allowed the model to better capture the dataset's complexities. However, the computational cost of the final grid search was notably higher than the randomized search, highlighting a trade-off between performance and runtime. 
 
 We use these optimized parameters for further model training and evaluation.
-
 
 
 ## **<h4 align="center"> ★ 8) Evaluating our Models: 🔬  ★ </h4>** 
@@ -485,7 +485,7 @@ The curve is less steep and farther from the top-left corner compared to Random 
     			- Training Score: Very high (around 90%-95%) with the derived feature option from Randomized Search, `log2`.
     			- Test Score: Lower than the training score, approximately 65%-70%, with a notable generalization gap. This suggests careful tuning of max_features might be needed to improve test accuracy.
 
-* #### **Conclusion:**
+* ### **Conclusion:**
 - After conducting a randomized search for initial hyperparameter exploration, a grid search was performed to fine-tune the selected parameters with cross-validation. The results indicate that `n_estimators` and `max_depth` play a significant role, with training scores consistently high and test scores peaking at balanced values. The rest of the parameters like `min_samples_split`, `min_samples_leaf`, and `max_features` show stable test performance, with optimal values preventing overfitting or underfitting, demonstrating the model's sensitivity to complexity control.
 - The sensitivity analysis provides strong evidence to support the hyperparameter choices from the hyperparameter tuning we have done earlier. These visualizations not only validate the optimal values but also highlight how performance would degrade with less optimal configurations. This alignment increases our confidence in the tuned Random Forest model's robustness and generalization capabilities.
 
@@ -496,15 +496,18 @@ The curve is less steep and farther from the top-left corner compared to Random 
 
 ## **<h4 align="center"> ★ 10) Our Expert Cut: How Can We Optimize Guild Prediction? 🎯 ★ </h4>** 
 
-### We’ve trekked through our long, vast journey, and we reach our final interval of destinations. In this section, we aim to understand the underlying significances, associations, and trends that a surface-level exploration fails to capture. #### We go beyond our Royal Contract, and delve even deeper into the *UNKNOWN*...
+### We’ve trekked through our long, vast journey, and we reach our final interval of destinations. In this section, we aim to understand the underlying significances, associations, and trends that a surface-level exploration fails to capture. 
+#### We go beyond our Royal Contract, and delve even deeper into the *UNKNOWN*...
 * We begin by targeting our top contending classifiers to revisit our explorations, and understand the intricate relationships between all of our Scholars’ features and characteristics so that we can better improve prediction for the Kingdom!
+
 * ### 1) FEATURE IMPORTANCE: How can it help our Scholars Succeed?
 With our Feature Importance Identification, we designed this function of deepening to extract and conceptualize the score of importance for each Scholar feature. Our plots sort the features by importance, returns this DataFrame, and extracts this importance to be mapped. We decided that identifying the Top 10 most important features was a paramount strategy to assist in the final most serious and accurate predictions. We fit the Random Forest Classifier with our top-picked hyperparameters and retrieved the feature importance scores. By forming a dataframe cataloging the feature names with their importance scores, we sorted them in descending order, with the most important ones prevailing on top. We proceed to plot them in a horizontal bar chart and can this simply and spatially understand the ranges of importance, just within this Top 10 exposition. 
-	* **Our Observations**: 
-		* `Fae Dust Reserve` is our most influential feature, by far. This is then followed by `Mystic Energy Level`, and `Mystical Index`. These are features that are closely related to a metric of magic, a trait that seems to be heavily deterministic for predicting Guild classes. One can assume that a certain amount of mystical powers/abilities are strong indicators of “legacy” for entering a certain guild. This presence leads us to assume that this mystical set of traits could transcend possible discrepancies in perfect stamina, health, or physical capabilities, as magical consistency acts potentially as a function of mystical “nepotism”, so to speak. Let’s break down these importances:
 <img width="1021" alt="Screenshot 2024-12-04 at 00 04 48" src="https://github.com/user-attachments/assets/95011c36-e87b-47f4-aaea-8c3f8ee7bfbb">
 
-## **<h5 align="center"> You have entered the Black Market </h5>** 
+* **Our Observations**: 
+	* `Fae Dust Reserve` is our most influential feature, by far. This is then followed by `Mystic Energy Level`, and `Mystical Index`. These are features that are closely related to a metric of magic, a trait that seems to be heavily deterministic for predicting Guild classes. One can assume that a certain amount of mystical powers/abilities are strong indicators of “legacy” for entering a certain guild. This presence leads us to assume that this mystical set of traits could transcend possible discrepancies in perfect stamina, health, or physical capabilities, as magical consistency acts potentially as a function of mystical “nepotism”, so to speak. Let’s break down these importances 
+
+## <h5 align="center" style="color:red;">You have entered the Black Market</h5>
 
 ### **Welcome to our Inside Scoop: *Scholar Counseling Services***
 * **CAUTION: THIS IS NOT KINGDOM-CERTIFIED; USE AT YOUR OWN RISK!**
@@ -519,7 +522,7 @@ The most determinant features, according to a finely-tuned algorithm model (Rand
 * And to everyone’s knowledge, you must **always** exercise! Healthy meals and physical training end up having some kind of impact on your Guild Membership. 
 * Though you, dear Reader, are on the black market searching for help, I will inform you that Knightly Valor is a great attribute for classification. If you represent courage, integrity, and leadership, you increase your chances to enter the **Master Guild**! *What are you doing here, anyway. Stop breaking the rules! Maybe that’s why you haven’t entered the top Guild yet!*
 
-## **<h5 align="center"> You have exited the Black Market, see you soon! </h5>** 
+## <h5 align="center" style="color:red;">You have exited the Black Market, see you soon!</h5>
 
 * ### 2) TOP FEATURE DISTRIBUTION: Per Guild Membership
 Top Features and their Boxplots, associated by Guild Membership. We felt compelled to justify our actions, as to be completely in line with our Royal Contract. In an effort to further support our selection of the Random Forest Classifier as our best performing model, we decided to visually conceptualize the distribution of the top 3 important features, sorted by class. These box plots provide a clear understanding of how these features impact the Guild Membership. 
