@@ -541,8 +541,10 @@ With our Feature Importance Identification, we designed this function of deepeni
 * **CAUTION: THIS IS NOT KINGDOM-CERTIFIED; USE AT YOUR OWN RISK!**
 You may… or may not have what it takes to reach your shining Master Guild goal. But if you follow our empirically-based evidence, you can “insider-trade” your way into your dreams! Yes, take *heavy* precaution, as this isn’t too legal, but can give you extreme, advanced insight into tried-and-true results. 
 The most determinant features, according to a finely-tuned algorithm model (Random Forest), tells our black-market researchers that access to magical resources and power, as well as access to rare mystical elements, is highly indicative in classification motivation. 
-* *From the Village Gossip*:  A little birdie told us that Scholars with higher power reserves are much more likely to be placed in higher guilds. Are you stuck without a Guild to your name? Do not fret! You can stop disappointing your family members and find a connection to increase your access to these rare resources. **Contact us if you’re willing to take the risk!**
+
+#### **From the *Village Gossip***:  A little birdie told us that Scholars with higher power reserves are much more likely to be placed in higher guilds. Are you stuck without a Guild to your name? Do not fret! You can stop disappointing your family members and find a connection to increase your access to these rare resources. **Contact us if you’re willing to take the risk!**
 **Don’t say we didn’t warn you,** some traits are just too hard to attain, even through the black market. Our researchers have informed us that Mystic Energy Levels, or your internal capacity for magic is a near direct reflection of your proficiency to perform dangerous magical tasks. Sorry not sorry if you aren’t blessed with this trait –you can try to maximize your potential with the next piece of advice.
+
 * Mystical Indexes can be optimized with non-stop training and effort. If you practice 24/7, we have faith in you, dear Scholar! The higher your composite score of magical skill, the more inclined the Classifiers are to believe that you possess this “inner talent”.... They don’t have to know the truth though– work hard and dreams can come true!
 
 ### **The Less Important Scoop**:
