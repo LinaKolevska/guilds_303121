@@ -200,17 +200,39 @@ We generate a heatmap for each guild membership type with the `unique()` method.
 
 Most Relevant Features for Classification
 
-From **No Guild (0)** to **Master Guild (1)**:
-1. Defense_spell_difficulty_Presence
-2. General_Health_Condition
-3. Physical_Stamina
-4. Royal_family_pressure_Presence
+##### 1. **No_Guild**
+- **General_Health_Condition**:
+  - Correlated with `Gold_Pouches_Per_Year` (-0.34).
+  - Correlated with `Physical_Stamina` (0.50).
+- **Physical_Stamina**:
+  - Strong correlation with `Mystical_Index` (0.33).
+  - Strong correlation with `General_Health_Condition` (0.50).
+- **Level_of_Academic_Wisdom**:
+  - Moderate correlation with `Mystical_Index` (0.44).
+  - Moderate correlation with `General_Health_Condition` (-0.27).
 
-From **No Guild (0)** to **Apprentice Guild (2)**:
-1. Mystical_Index
-2. Mystic_Energy_Level
-3. Level_of_Academic_Wisdom
-4. General_Health_Condition
+##### 2. **Apprentice_Guild**
+- **General_Health_Condition**:
+  - Correlated with `Gold_Pouches_Per_Year` (-0.32).
+  - Correlated with `Physical_Stamina` (0.53).
+- **Physical_Stamina**:
+  - Strong correlation with `Mystical_Index` (0.41).
+  - Strong correlation with `General_Health_Condition` (0.53).
+- **Mental_Wizardry**:
+  - Moderate correlation with `Mystical_Index` (0.34).
+  - Moderate correlation with `Physical_Stamina` (0.41).
+
+##### 3. **Master_Guild**
+- **General_Health_Condition**:
+  - Correlated with `Gold_Pouches_Per_Year` (-0.32).
+  - Correlated with `Physical_Stamina` (0.54).
+- **Physical_Stamina**:
+  - Strong correlation with `Mystical_Index` (0.39).
+  - Strong correlation with `General_Health_Condition` (0.54).
+- **Level_of_Academic_Wisdom**:
+  - Moderate correlation with `Mystical_Index` (0.44).
+  - Moderate correlation with `General_Health_Condition` (-0.21).
+
 
 
 ## **<h4 align="center"> ★ 3) Model Preparation: 🛠️ ★ </h4>** 
