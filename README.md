@@ -59,7 +59,7 @@ No **monarchical projects** go without meticulous preparation and pre-structurin
 
 
 ## **<h4 align="center"> ★ 2) Performing an extensive Exploratory Data Analysis: Broken Down in Parts ★ </h4>** 
-#### Part I of Step 2: Cleaning
+## **<h5 align="center">  Part I of Step 2: Cleaning </h5>** 
 * 2.1.1) At this point, we have retrieved the basic information and distributions of our original dataset and decide to proceed with the cleaning and manipulation. We determined it necessary to copy the *original_data* into a dataframe; we call it **”df”**. This is accomplished with the *.copy( )* built-in. Again, this is done for future comparison and analysis amongst intervals of data modifications. 
 * 2.1.2) Previously identifying the target variable `Guild_Membership`, it is paramount that the status of this feature is not null for each examined Scholar. Thus, we remove the Scholars that have a missing membership status, allowing us to properly analyze and handle our task. To accomplish this we print the missing value count for each Scholar (each row), within the Guild Membership column. In the case that the value is missing, we drop it with a `.dropna(subset=[‘Guild_Membership’])`. To verify this removal, we print the summed Guild_membership missing values, post-removal. We began with **25,447** Scholars with zero Membership documentation, and prevailed with **0** undocumented Scholars. 
 * 2.1.3) Focusing in on our target variable, we proceeded with delving into its distribution. Utilizing a `.value_counts( )` built-in, we aggregated the total number of presences, per class. Our results:
@@ -75,8 +75,7 @@ No **monarchical projects** go without meticulous preparation and pre-structurin
   * `Discrete Columns:` 'Age_of_Wisdom', 'Gold_Pouches_Per_Year', 'Level_of_Academic_Wisdom', 'General_Health_Condition', 'Dragon_Sight_Sharpness', 'Knightly_Valor'
   * `Continuous Columns:` ‘Fae_Dust_Reserve', 'Physical_Stamina', 'Mystical_Index', 'Mystic_Energy_Level', 'Mental_Wizardry', 'Potion_Power_Level', 'Wizardry_Skill', 'Spell_Mastering_Days', 'Enchanted_Coin_Count', 'Celestial_Alignment', 'Rune_Power'
 
-
-#### Part II of Step 2: Descriptive Statistics
+## **<h5 align="center"> Part II of Step 2: Descriptive Statistics </h5>** 
 * 2.2.1) We now proceed with examining the Numerical Columns, by visualizing the distributions of the columns to uncover patterns, outliers, and data properties.
 	* 1. **Dynamic Layout:** Rows and columns are calculated based on the number of variables to optimize space. This is done for future plotting. We utilize `ceil` logic as a security measure, to ensure that the columns fit within the grid. We create subplots with `plt.subplots(n_rows, n_cols)` to create a grid of subplots. These subplots individually display the numerical column distributions (for each feature). 
 	* 2. **Histograms with KDE:** Utilizing `sns.histplot , we have a histogram with a kernel density estimate (KDE) overlay. We set `bins` to 30 and add a KDE curve. Histograms reveal frequency, while KDE overlays smooth density estimation for better interpretation.
@@ -87,7 +86,7 @@ No **monarchical projects** go without meticulous preparation and pre-structurin
 	* **INSIGHT**: * We are able to see the comparisons of value presences, amongst the individual features. For example, columns similar to *Healear Consultation Presence* has far more *”Present”* values than *”Absent”* values (**195,303 vs. 10,106**). *Heavy Elixir Consumption Presence* and *Bolt of Doom*, “absences” absolutely dominate the features (**196,951 Absent  vs. 8,398 Present**). 
 * The majority of our binary columns have severe class imbalances and the Multi-Category Influence (within the target variable), being so imbalanced, allows us to proceed into a specific type of encoding of the categorical variables. This led us to choose a mapping technique.
 
-#### Part III of Step 2: Encoding Target Variable for Correlation Analyses 
+## **<h5 align="center"> Part III of Step 2: Encoding Target Variable for Correlation Analyses </h5>**  
 * 2.3.1) Post analysis of both data types, proceeded with a mapping style encoding, customizing the values for each one of our guilds. This is obviously crucial to determine correlations and continue optimizing prediction performance. Instead of applying a one-hot or label encoding technique, we decide to customize our encoded values. We create a dictionary `guild_mapping` and allocate the following categorical values into encoded numbers:
 	* `No_Guild` = 0
 	* `Master_Guild` = 1
@@ -127,7 +126,7 @@ The Highly Relevant Features are likely the most essential for Guild prediction,
 	**Most Irrelevant Features**: We determined that the last three features, with the 3 largest p-values, are the most irrelevant amongst the categorical features. These are:
 `Fruits_of_eden_consumption_Presence`, `Doc_availability_challenge_Presence`, `Healer_consultation_Presence`
 
-#### Part IV of Step 2: Reducing our Dataset –based on our analysis of **Importance/Relevance**
+## **<h5 align="center"> Part IV of Step 2: Reducing our Dataset –based on our analysis of **Importance/Relevance** </h5>**  
 * 2.4.1) Similarly done before, we copy our dataframe into a new one, called `df_reduced`. This way we can maintain the integrity of each change per important step, and have mediums to perform comparisons later on. Now we can perform continued data reduction and refinement. As identified just previously, we selected the 3 largest p-value features as the most irrelevant from the Top 10 most relevant selection; the rest of the features, non-included in the Top 10 results, will obviously be removed, as well, as their irrelevance is implied. This process drops 13 total irrelevant columns and prints the remaining ones.
 * 2.4.2) We can finally continue reducing our dataset, commencing with the removal of the most irrelevant columns, then with the most undocumented Scholars, and finally with the rows that have missing values within the most “important/relevant” features. We identify the undocumented Scholars by selecting the ones that have missing values in more than 6 columns, establishing this as our threshold for removal –it is important to note that **we avoid all rows where Scholars are within the  `Apprentice_Guild` (value *2* within the encoded Guild Membership column), to protect the underrepresented Guild and its imbalance.** We print this shape, resulting in **227,700 Scholars** and **21 Features**. We have significantly reduced our dataset, but it is still far too large to *FILL* our missing values: our biggest objective to achieve before training our models. 
 
@@ -140,7 +139,7 @@ rows were dropped.
 * 2.4.4) After looking at the distribution of the guild membership we see that it is still not balanced after doing all of the data cleaning. This allows us to quickly see the proportion of guild members versus non-members in the cleaned dataset. We also aim to visualize this data to help communicate the data distribution. In doing this we also create a copy of the dataset to maintain its integrity for modifications. We calculate the distribution first with `df_cleaned['Guild_Membership_encoded']` extracts the column representing the guild membership and `.value_counts()` counts each unique value in the column. We then print out the count and represent it visualizing using a bar graph through, `distribution.plot(kind='bar', …)`.
 The outputs show the precise distribution in the column. The majority of rows in the group (59,991) belong to category 0 (`No_Guild`). The second majority of the rows (31,671) belong to category 1 (`Master_Guild`) and lastly, category 2(`Apprentice_Guild`) has the smallest portion of the cleaned dataset (4,166).  This distribution represents a significant imbalance in the dataset which will be considered in the later analyses and modeling to avoid inaccurate and biased results.
 
-#### Part V of Step 2: Data Splitting Amongst Categorical and Numerical Columns
+## **<h5 align="center"> Part V of Step 2: Data Splitting Amongst Categorical and Numerical Columns </h5>** 
 * 2.5.1) Then we reduce the no guild and master guild columns to 20000 for no guild and 13000 for apprentice guild. And with this it creates new dataset called `df_balanced`
 As there is a class imbalance in our dataset, we implemented a resampling strategy to address this problem. We downsample the over-represented classes (categories 0, and 1) and keep the minority class (category 2) unchanged. In the code, we split the data into the respective classes. We then proceed to reduce the over-represented classes with:
 - `class_0_downsampled = resample(class_0, replace=False, n_samples=20000, random_state=42)`
@@ -162,7 +161,9 @@ We clean and ensure consistency by `list(numerical_columns)` and `list(set(categ
 We adjust the lists by moving the target column, `Guild_Membership_encoded`, to the numerical/ categorical columns if necessary
 As the final step, we displayed the updated column lists for final verification.
 
-#### Part VI of Step 2: Identifying correlations and distributions of relevant features for categorization
+
+## **<h5 align="center"> Part VI of Step 2: Identifying correlations and distributions of relevant features for categorization </h5>** 
+
 * 2.6.1) Checking for outliers and handling them in a way that the once that are on above the plot distribution  we set as the highest value within the plot and the once under we set as the lowest value within the plot.
 Before checking for outliers we created a copy of the dataset to only show the outliers but then we proceeded to alter the `df_balanced` when handling them. The handling methods involve capping outliers to the nearest acceptable values based on the IQR.
 
@@ -206,7 +207,7 @@ From **No Guild (0)** to **Apprentice Guild (2)**:
 4. General_Health_Condition
 
 
-### 3) Model Preparation
+## **<h4 align="center"> ★ 3) Model Preparation: 🛠️ ★ </h4>** 
 * 3.1) Once we’ve collected all our data, Splitting our data into testing and training sets, 20% assigned to test set (With more training samples, the model is more likely to encounter variations in the data, making it better at generalizing to unseen cases) (80% allocated for training ensures the model has sufficient data to learn patterns and relationships among features and target classes) -> prints shape of data 
 
 	We use the 80-20 split which provides a balanced approach:
@@ -226,8 +227,7 @@ With a list comprehension for loop, we identify and extract the numerical column
 * 3.3) Further splitting the scaled training set dataset for the final dataset and validation set that remains independent of the training process.
 As above in 3.1, we split the data into 20-80% of training and testing. The parameters are `X_train_scaled` and `y_train`: The scaled features and corresponding labels from the initial training set. We again stratify `y`. We get the final training and validation set where there are 19,945 samples in the final training set and 20 columns. The feature matrix of the validation set has 4,987 samples, which is 20% of the original training set and 20 columns. The output shows a proportional split applied to the training set and consistency between the training and validation sets, which is critical for training ML models.
 
-
-### 4) Training and Testing Models 
+## **<h4 align="center"> ★ 4) Training and Testing Models: 📝 ★ </h4>** 
 * 4.1) Through anticipated research in preparation for this Royal Task, we determined the 4 most adequate models to complete a multi-class classification task, like our own. This led us on a vast journey, and we came to a conclusion of testing the following 4:
 	* 1) Gradient Boosted Trees
 	* 2) Random Forest
@@ -292,7 +292,7 @@ We immediately notice that of all accuracies, the KNN Classifier performs more p
 - `Logistic Regression`
 
 
-### 5) Plotting our Learning Curves
+## **<h4 align="center"> ★ 5) Plotting our Learning Curves: 💡 ★ </h4>** 
 
 * 5.1) Along with training and testing our 4 selected models, it is crucial to spatially conceptualize the performance of these models. We accomplish this by plotting Learning Curves, with the `.plot_learning_curve( )` built-in function. We define our proportions of training sizes, that eventually grow from 10-100%, to plot the Learning Curves. We initialize the training and validation score lists for the varying training sizes, and iterate our training over this range. By this process, we are able to calculate the training **accuracy** and validation **accuracy** with a `.score( )` built-in function. These accuracies are plotted with the growing training set sizes, allowing us to visually perceive the behavior of each selected model, and understand how the models perform, relative to our split set proportions.
 
@@ -328,122 +328,116 @@ We immediately notice that of all accuracies, the KNN Classifier performs more p
 	* **Logistic Regression** is too far too linear/simple and underfits the data, though it shows strong generalization.
 	* **KNN** also overfits and poorly generalizes along with its low performing accuracy
 
-
-### 6) Evaluating our Models:
-* #### **Attempt 1 **  
-* We chose to hyperparameter tune the following models: **Gradient Boosting Trees** (initially the best performer), **Random Forest** and **Logistic Regression**. 
-* During our first attempt to perform hyperparameter tuning on these models, we initially attempted to optimize Gradient Boosting Trees due to its promising accuracy during initial testing. However, in the tuning process we encountered significant challenges with the computational efficiency of performing **Grid Search** on **Gradient Boosting Trees**. Despite experimenting with various adjustments to lower the time it takes for the tuning process, the model's training time remained too long (shown in the screenshot below). Given that computational efficiency is a critical consideration in real-world applications, we made the decision to exclude Gradient Boosting Trees from further optimization. This allowed us to focus on the two remaining models, **Logistic Regression** and **Random Forest**, which demonstrated balanced performance and acceptable computational efficiency during the initial evaluation.This decision ensured that our workflow remained efficient while concentrating on models with a better balance of performance and practicality.
-
-* #### **Attempt 2:**  
-Following the initial training phase, we prioritized hyperparameter tuning for Logistic Regression and Random Forest. These models were selected due to their potential for improvement, coupled with their computational practicality, making them better suited for further refinement and optimization in this project. 
-
-* Another issue we encountered after the initial training of the models was their inability to effectively classify the minority class, **Apprentice Guild**. To address this, we decided to slightly oversample this class by adding 1,000 additional samples just before performing hyperparameter tuning on the models.
-
-
-### 7.1) Problem Solving, Pre-Tune:
-#### **Attempt 1:**  
+## **<h4 align="center"> ★ 6) Problem Solving, Pre-Tune: 🚨 ★ </h4>** 
+* **7.1) Attempts at Mitigating Issues**
+	* ### **Attempt 1:**  
 We chose to hyperparameter tune the following models: **Gradient Boosting Trees** (initially the best performer), **Random Forest** and **Logistic Regression**. 
 During our first attempt to perform hyperparameter tuning on these models, we initially attempted to optimize Gradient Boosting Trees due to its promising accuracy during initial testing. However, in the tuning process we encountered significant challenges with the computational efficiency of performing **Grid Search** on **Gradient Boosting Trees**. Despite experimenting with various adjustments to lower the time it takes for the tuning process, the model's training time remained too long (shown in the screenshot below). Given that computational efficiency is a critical consideration in real-world applications, we made the decision to exclude Gradient Boosting Trees from further optimization. This allowed us to focus on the two remaining models, **Logistic Regression** and **Random Forest**, which demonstrated balanced performance and acceptable computational efficiency during the initial evaluation.This decision ensured that our workflow remained efficient while concentrating on models with a better balance of performance and practicality.
 <img width="566" alt="Screenshot 2024-12-03 at 22 55 45" src="https://github.com/user-attachments/assets/ab17b54d-24fe-43b1-a4a8-53dcee1b8c4a">
-
-#### **Attempt 2:**  
+	* ### **Attempt 2:**  
 Following the initial training phase, we prioritized hyperparameter tuning for Logistic Regression and Random Forest. These models were selected due to their potential for improvement, coupled with their computational practicality, making them better suited for further refinement and optimization in this project. 
 
 Another issue we encountered after the initial training of the models was their inability to effectively classify the minority class, **Apprentice Guild**. To address this, we decided to slightly oversample this class by adding 1,000 additional samples just before performing hyperparameter tuning on the models.
 
-### 7.2) Hyperparameter Tuning
-####Logistic Regression
+## **<h4 align="center"> ★ 7) Hyperparameter Tuning: 📐 ★ </h4>** 
+* #### 1) Logistic Regression
 We chose this model due to its simplicity, computational efficiency, and stable performance during initial testing. The tuning process aimed to optimize:
-**Regularization Strength (`C`)**: Adjusted to find the optimal trade-off between underfitting and overfitting. 
-**Solver**: Explored options like `lbfgs` and `saga` to handle the multi-class nature of the problem effectively. 
-**Maximum Iterations (`max_iter`)**: Increased to ensure convergence for the high-dimensional dataset.
-**RESULTS:**
-**The best parameters obtained: **  `C: 10`, `solver: lbfgs`, `max_iter: 500`
-**Cross-validation accuracy**: Improved to **62.46%**, a slight increase from the initial performance. 
-**Training time**: Highly efficient (~4.49 seconds)
-**Analysis**: The optimized Logistic Regression model maintained its computational efficiency while achieving a modest improvement in performance. 
+	* **Regularization Strength (`C`)**: Adjusted to find the optimal trade-off between underfitting and overfitting. 
+	* **Solver**: Explored options like `lbfgs` and `saga` to handle the multi-class nature of the problem effectively. 
+	* **Maximum Iterations (`max_iter`)**: Increased to ensure convergence for the high-dimensional dataset.
+	* **RESULTS:**
+		* **The best parameters obtained:**  `C: 10`, `solver: lbfgs`, `max_iter: 500`
+		* **Cross-validation accuracy**: Improved to **62.46%**, a slight increase from the initial performance. 
+		* **Training time**: Highly efficient (~4.49 seconds)
+		* **Analysis**: The optimized Logistic Regression model maintained its computational efficiency while achieving a modest improvement in performance. 
 
-A.1 **Warnings in Logistic Regression Hyperparameter Tuning**
-During the hyperparameter tuning phase for Logistic Regression, we encountered `ConvergenceWarning` messages. These warnings typically indicate that the optimization process did not fully converge within the specified maximum number of iterations (`max_iter`).
-The warnings are triggered during the exploration of certain parameter combinations in the grid, particularly those involving high regularization (`C`) or specific solvers like `saga`. These combinations require more iterations to converge due to the complexity of the optimization problem. 
-**Impact on Results: ** The presence of `ConvergenceWarning` during hyperparameter tuning does not invalidate the results:
-The best parameter combination (`C=10`, `solver=lbfgs`, `max_iter=500`) was selected after careful cross-validation and is unaffected by these warnings. 
+* **7.1) Warnings in Logistic Regression Hyperparameter Tuning**
+	* During the hyperparameter tuning phase for Logistic Regression, we encountered `ConvergenceWarning` messages. These warnings typically indicate that the optimization process did not fully converge within the specified maximum number of iterations (`max_iter`).
+	* The warnings are triggered during the exploration of certain parameter combinations in the grid, particularly those involving high regularization (`C`) or specific solvers like `saga`. These combinations require more iterations to converge due to the complexity of the optimization problem. 
+	* **Impact on Results: ** The presence of `ConvergenceWarning` during hyperparameter tuning does not invalidate the results:
+	* The best parameter combination (`C=10`, `solver=lbfgs`, `max_iter=500`) was selected after careful cross-validation and is unaffected by these warnings. 
 The warnings are an indication of computational inefficiency in exploring specific parameter combinations rather than errors in the tuning process.
 
-
-#### Random Forest
-This model demonstrated strong potential during initial testing but exhibited signs of overfitting, which is indicated by a significant gap between training and validation accuracy. By hyperparameter tuning this model we aimed to improve its generalization by optimizing the following parameters: 
-**Number of Trees (`n_estimators`)**: Adjusted to balance accuracy and runtime. 
-**Tree Depth (`max_depth`)**: Limited to prevent overfitting. 
-**Minimum Samples per Split (`min_samples_split`)** and **Leaf (`min_samples_leaf`)**: Tuned to optimize the tree-splitting process. 
-**Features Considered per Split (`max_features`)**: Explored to enhance feature selection at each node.
-**RESULTS:**
-**Initial Randomized Search**: 
-**Best Parameters**: `n_estimators: 100`, `max_depth: 20`, `min_samples_split: 5`, `min_samples_leaf: 1`, `max_features: log2` 
-**Cross-validation accuracy**: Improved to **70.93%**. 
-**Training time**: ~74.69 seconds.
-**Final Grid Search**:
-**Best Parameters**: `n_estimators: 150`, `max_depth: None`, `min_samples_split: 4`, `min_samples_leaf: 1`, `max_features: log2` 
-**Cross-validation accuracy**: Further improved to **71.22%**. 
-**Training time**: ~107.93 seconds.
-**Analysis**: The tuning process significantly improved Random Forest’s performance, reducing overfitting and enhancing its ability to generalize. By comparing the Randomized Search and the Grid Search we notice that the combination of increased tree depth and fine-tuned splitting parameters allowed the model to better capture the dataset's complexities. However, the computational cost of the final grid search was notably higher than the randomized search, highlighting a trade-off between performance and runtime. 
+* #### 2) Random Forest
+	* This model demonstrated strong potential during initial testing but exhibited signs of overfitting, which is indicated by a significant gap between training and validation accuracy. By hyperparameter tuning this model we aimed to improve its generalization by optimizing the following parameters: 
+	* **Number of Trees (`n_estimators`)**: Adjusted to balance accuracy and runtime. 
+	* **Tree Depth (`max_depth`)**: Limited to prevent overfitting. 
+	* **Minimum Samples per Split (`min_samples_split`)** and **Leaf (`min_samples_leaf`)**: Tuned to optimize the tree-splitting process. 
+	* **Features Considered per Split (`max_features`)**: Explored to enhance feature selection at each node.
+	* **RESULTS:**
+		* **Initial Randomized Search**: 
+		* **Best Parameters**: `n_estimators: 100`, `max_depth: 20`, `min_samples_split: 5`, `min_samples_leaf: 1`, `max_features: log2` 
+		* **Cross-validation accuracy**: Improved to **70.93%**. 
+		* **Training time**: ~74.69 seconds.
+		* **Final Grid Search**:
+		* **Best Parameters**: `n_estimators: 150`, `max_depth: None`, `min_samples_split: 4`, `min_samples_leaf: 1`, `max_features: log2` 
+		* **Cross-validation accuracy**: Further improved to **71.22%**. 
+		* **Training time**: ~107.93 seconds.
+		* **Analysis**: The tuning process significantly improved Random Forest’s performance, reducing overfitting and enhancing its ability to generalize. By comparing the Randomized Search and the Grid Search we notice that the combination of increased tree depth and fine-tuned splitting parameters allowed the model to better capture the dataset's complexities. However, the computational cost of the final grid search was notably higher than the randomized search, highlighting a trade-off between performance and runtime. 
 
 We use these optimized parameters for further model training and evaluation.
 
 
-### 8) Evaluating our Models:
-* 8.1 We tested the performance of the models—Random Forest and Logistic Regression—using the best parameters identified from previous hyperparameter tuning. Along with the already-visualized accuracy, precision, recall, and F1 score, we also plotted a confusion matrix, with the class predictions in colour of intensity. 
-We define the two models with `models_with_best_params` in which the models are then trained with the full training sets (`X_train_final` and `y_train_final`). The accuracy and runtime are calculated on the validation set `y_val_pred` and the classification reports are printed out which include precision, recall, and F1 scores for each class. The A function `plot_learning_curve_best` evaluates model performance with varying amounts of training data.
-#### **Random Forest Results**
-- **Accuracy:** 0.7284
-- **Class-Level Performance:**
- 	 - **Class 0 (No Guild):** High precision (0.75) and recall (0.81), indicating strong performance for this majority class.
-  - **Class 1 (Apprentice):** Moderate precision (0.61) and recall (0.63), showing decent but not perfect predictions for this group.
- 	 - **Class 2 (Master):** Very high precision (0.98), but lower recall (0.65), meaning the model predicts "Master" accurately but misses some actual instances.
-- **Macro Average F1-Score:** 0.73
-- **Weighted Average F1-Score:** 0.73
-- **Training Time:** 3.15 seconds
-- **Generalization:** The model does not show signs of overfitting or underfitting, with validation performance aligning closely with expected outcomes.
 
-#### **Logistic Regression Results**
-- **Accuracy:** 0.6206
-- **Class-Level Performance:**
- 	 - **Class 0:** Moderate precision (0.67) and high recall (0.82), showing a tendency to favor this majority class.
-  	- **Class 1:** Moderate precision (0.53) and recall (0.61), similar to Random Forest but slightly worse overall.
- 	 - **Class 2:** Completely fails to predict this class, with precision, recall, and F1-score at 0.00.
-- **Macro Average F1-Score:** 0.44
-- **Weighted Average F1-Score:** 0.56
-- **Training Time:** 0.30 seconds
-- **Generalization:** Logistic Regression underfits the data, struggling to capture the complexity of class distributions, particularly for the "Master" class.
+## **<h4 align="center"> ★ 8) Evaluating our Models: 🔬  ★ </h4>** 
+## **<h5 align="center"> Part I of Step 8: Testing the Performance, Post-Tune </h5>**  
 
-#### **Comparison and Evaluation**
-- **Accuracy:** Random Forest outperforms Logistic Regression, showing better generalization across all classes.
-- **Class-Level Performance:**
-  - Random Forest handles all classes reasonably well, including the "Master" class, with a high precision of 0.98. Logistic Regression, however, fails entirely for the "Master" class.
-  - Both models perform moderately for the "Apprentice" class, but Random Forest achieves better precision and recall.
-  - Logistic Regression over-prioritizes the majority "No Guild" class, which impacts overall performance.
-- **Macro and Weighted F1-Scores:** Random Forest has significantly better F1-scores (0.73 vs. 0.44 macro and 0.73 vs. 0.56 weighted), reflecting its balanced performance across all classes.
+* 8.1.1) We tested the performance of the models—Random Forest and Logistic Regression — using the best parameters identified from previous hyperparameter tuning. Along with the already-visualized accuracy, precision, recall, and F1 score, we also plotted a confusion matrix, with the class predictions in colour of intensity. 
+* We define the two models with `models_with_best_params` in which the models are then trained with the full training sets (`X_train_final` and `y_train_final`). The accuracy and runtime are calculated on the validation set `y_val_pred` and the classification reports are printed out which include precision, recall, and F1 scores for each class. The A function `plot_learning_curve_best` evaluates model performance with varying amounts of training data.
 
--  We have concluded that Random Forest is the superior model for this dataset, offering better accuracy, class-level performance, and generalization. Logistic Regression may still be useful for simple and linear tasks or when computational efficiency is a priority, but it is not suitable for this classification task.
+* #### **Random Forest Results**:
+	- **Accuracy:** 0.7284
+	- **Class-Level Performance:**
+		- **Class 0 (No Guild):** High precision (0.75) and recall (0.81), indicating strong performance for this majority class.
+  		- **Class 1 (Apprentice):** Moderate precision (0.61) and recall (0.63), showing decent but not perfect predictions for this group.
+ 	 	- **Class 2 (Master):** Very high precision (0.98), but lower recall (0.65), meaning the model predicts "Master" accurately but misses some actual instances.
+	- **Macro Average F1-Score:** 0.73
+	- **Weighted Average F1-Score:** 0.73
+	- **Training Time:** 3.15 seconds
+	- **Generalization:** The model does not show signs of overfitting or underfitting, with validation performance aligning closely with expected outcomes.
 
-* 8.2 For a final model evaluation, we calculate the ROC Curves and AUC scores for our multi-class classification task, approached with “one-v-all”. As well, we compute a confusion matrix `ConfusionMatrixDisplay` for each model to highlight potential misclassifications. We compute macro averaging, used to equally weight the performance of each class, irregarding the class proportions; a very common multi-class classification strategy. For each class, we compute the ROC Curve and calculate the AUC as if it were a binary problem, and later take the simple average of AUC scores for all classes to compute the macro-averaged AUC. 
-#### Random Forest Results
-- **`Macro-AUC`: 0.8448:**This indicates that the Random Forest model performs well across all classes, with strong discriminative power.
-- **Confusion Matrix Observations:**
-	- *Class 0:* The model correctly classified the majority of instances (2204 correct, 510 misclassified as Class 1).
-	- *Class 1:* Moderate performance with 1014 correct predictions but 582 misclassified as Class 0.
-	- *Class 2:* Reasonable performance, with 560 correct classifications but noticeable confusion with other classes.
-- This final evaluation shows that Random Forest handles all three classes reasonably well, with the highest performance for Class 0 which is the No Guild category.
+* #### **Logistic Regression Results**:
+	- **Accuracy:** 0.6206
+	- **Class-Level Performance:**
+ 		- **Class 0:** Moderate precision (0.67) and high recall (0.82), showing a tendency to favor this majority class.
+  		- **Class 1:** Moderate precision (0.53) and recall (0.61), similar to Random Forest but slightly worse overall.
+ 	 	- **Class 2:** Completely fails to predict this class, with precision, recall, and F1-score at 0.00.
+	- **Macro Average F1-Score:** 0.44
+	- **Weighted Average F1-Score:** 0.56
+	- **Training Time:** 0.30 seconds
+	- **Generalization:** Logistic Regression underfits the data, struggling to capture the complexity of class distributions, particularly for the "Master" class.
 
-#### Logistic Regression Results
-- **`Macro-AUC`: 0.7337**:This reflects how Logistic regression has a lower performance compared to Random Forest.
-- **Confusion Matrix Observations:**
-	- *Class 0:* Good performance with 2236 correct predictions, though some were misclassified as Class 1.
-	- *Class 1:* Moderate results, with 983 correctly predicted but a higher rate of confusion with Class 0.
-	- *Class 2:* The model was not very successful to predict Class 2, with all instances misclassified as either Class 0 or Class 1.
-- Lastly, Logistic Regression struggled significantly with the minority class (Class 2), leading to lower overall performance. It especially has lower performance than random forest.
+* #### **Comparison and Evaluation**
+	- **Accuracy:** Random Forest outperforms Logistic Regression, showing better generalization across all classes.
+	- **Class-Level Performance:**
+		- Random Forest handles all classes reasonably well, including the "Master" class, with a high precision of 0.98. Logistic Regression, however, fails entirely for the "Master" class.
+  		- Both models perform moderately for the "Apprentice" class, but Random Forest achieves better precision and recall.
+  		- Logistic Regression over-prioritizes the majority "No Guild" class, which impacts overall performance.
+	- **Macro and Weighted F1-Scores:** Random Forest has significantly better F1-scores (0.73 vs. 0.44 macro and 0.73 vs. 0.56 weighted), reflecting its balanced performance across all classes.
 
-#### Graph Observations
+- 8.1.2) We have concluded that Random Forest is the superior model for this dataset, offering better accuracy, class-level performance, and generalization. Logistic Regression may still be useful for simple and linear tasks or when computational efficiency is a priority, but it is not suitable for this classification task.
+
+  
+## **<h5 align="center"> Part II of Step 8: ROC Curves & Area Under Curve </h5>**  
+* 8.2.1) For a final model evaluation, we calculate the ROC Curves and AUC scores for our multi-class classification task, approached with “one-v-all”. As well, we compute a confusion matrix `ConfusionMatrixDisplay` for each model to highlight potential misclassifications. We compute macro averaging, used to equally weight the performance of each class, irregarding the class proportions; a very common multi-class classification strategy. For each class, we compute the ROC Curve and calculate the AUC as if it were a binary problem, and later take the simple average of AUC scores for all classes to compute the macro-averaged AUC. 
+
+	* #### **Random Forest Results**
+		- **`Macro-AUC`: 0.8448:** This indicates that the Random Forest model performs well across all classes, with strong discriminative power.
+		- **Confusion Matrix Observations:**
+			- *Class 0:* The model correctly classified the majority of instances (2204 correct, 510 misclassified as Class 1).
+			- *Class 1:* Moderate performance with 1014 correct predictions but 582 misclassified as Class 0.
+			- *Class 2:* Reasonable performance, with 560 correct classifications but noticeable confusion with other classes.
+	- This final evaluation shows that Random Forest handles all three classes reasonably well, with the highest performance for Class 0 which is the No Guild category.
+
+	* #### **Logistic Regression Results**
+		- **`Macro-AUC`: 0.7337**:This reflects how Logistic regression has a lower performance compared to Random Forest.
+		- **Confusion Matrix Observations:**
+			- *Class 0:* Good performance with 2236 correct predictions, though some were misclassified as Class 1.
+			- *Class 1:* Moderate results, with 983 correctly predicted but a higher rate of confusion with Class 0.
+			- *Class 2:* The model was not very successful to predict Class 2, with all instances misclassified as either Class 0 or Class 1.
+	- Lastly, Logistic Regression struggled significantly with the minority class (Class 2), leading to lower overall performance. It especially has lower performance than random forest.
+
+* #### 8.2.2) Graph Observations
 <img width="803" alt="Screenshot 2024-12-03 at 23 28 05" src="https://github.com/user-attachments/assets/7143f1dd-e188-47eb-abe4-d819443a6fe1">
 
 1. ##### Random Forest
@@ -452,107 +446,113 @@ The curve is closer to the top-left corner of the plot, indicating high sensitiv
 2. ##### Logistic Regression
 The curve is less steep and farther from the top-left corner compared to Random Forest, indicating lower sensitivity at equivalent False Positive Rates.
 
-### 9) Hyperparameter Sensitivity Analysis:
-It is paramount that we visualize the impact of the hyperparameters on our Random Forest Classifier’s training and test scores with line plots. This is completed by finding the mean scores for varying values of the number of trees in the forest (`n_estimators`), the maximum depth of the trees (`max_depth`), (`min_samples_split`) the minimum number of samples required to split an internal node, (`min_samples_leaf`) the minimum number of samples required to be in a leaf node, and (`max_features`) the maximum number of features considered for splitting a node. This step allows us to see how increasing the number of trees or adjusting the depth of the trees affects model performance (under vs. overfitting), The key hyperparameters are derived from the cross-examination portion of hyperparameter tuning of Random Forest via Randomized and Grid search. For the code, we use Randomized search to see how the ideal parameters for Gridsearch were chosen, then we see the fine-tuning of Gridsearch in the parameters.
+## **<h4 align="center"> ★ 9) Hyperparameter Sensitivity Analysis: 🧪 ★ </h4>** 
+* It is paramount that we visualize the impact of the hyperparameters on our Random Forest Classifier’s training and test scores with line plots. This is completed by finding the mean scores for varying values of the number of trees in the forest (`n_estimators`), the maximum depth of the trees (`max_depth`), (`min_samples_split`) the minimum number of samples required to split an internal node, (`min_samples_leaf`) the minimum number of samples required to be in a leaf node, and (`max_features`) the maximum number of features considered for splitting a node.
+* This step allows us to see how increasing the number of trees or adjusting the depth of the trees affects model performance (under vs. overfitting), The key hyperparameters are derived from the cross-examination portion of hyperparameter tuning of Random Forest via Randomized and Grid search. For the code, we use Randomized search to see how the ideal parameters for Gridsearch were chosen, then we see the fine-tuning of Gridsearch in the parameters.
 <img width="738" alt="Screenshot 2024-12-03 at 23 28 28" src="https://github.com/user-attachments/assets/52832653-203c-4d66-8c66-a359a0738b2e">
 
-#### **Randomized Search**
-- `n_estimators`: 
-    - Training Score: remains consistently high, around 85%-95%, for all values of `n_estimators`.
-    - Test Score: remains lower than the training score, indicating a possible generalization gap.
-- `max_depth`: The maximum depth of each tree.
-    - Training Score:As shown, the score increases with `max_depth`, reaching nearly 100% at `max_depth = 20`, and then slightly declines as the model becomes overfitted or overly complex.
-    - Test Score:it peaks at around `max_depth = 20`, where the model achieves the best balance of complexity and generalization.
-- `min_samples_split`:
-    - Training Score: The training accuracy decreases slightly as min_samples_split increases. This is expected since larger splits make the model less complex by preventing small, specialized splits.
-    - Test Score: The test accuracy remains relatively stable, slightly peaking at lower `min_samples_split` values (around 2-5) and then plateauing or slightly decreasing. This suggests that smaller split thresholds provide sufficient complexity without overfitting.
-- `min_samples_leaf`:
-    - Training Score: The training accuracy peaks at `min_samples_leaf = 2` and starts to decline with larger leaf sizes. Smaller leaves allow the model to fit the training data more closely, increasing accuracy but risking overfitting.
-    - Test Score: The test accuracy mirrors this trend, with a slight peak at min_samples_leaf = 2 and a decline thereafter. Larger leaves simplify the model too much, leading to underfitting.
-- `max_features`:
-    - Training Score: The training accuracy increases as the number of features considered for splits grows (`sqrt to log2`). This happens because more features allow the model to fit the training data more precisely.
-    - Test Score: Test accuracy also improves as max_features increases, with the model achieving the best balance at `log2`. This suggests that considering more features helps the model generalize better without overfitting.
+	* #### **Randomized Search**
+		- `n_estimators`: 
+    			- Training Score: remains consistently high, around 85%-95%, for all values of `n_estimators`.
+    			- Test Score: remains lower than the training score, indicating a possible generalization gap.
+		- `max_depth`: The maximum depth of each tree.
+    			- Training Score:As shown, the score increases with `max_depth`, reaching nearly 100% at `max_depth = 20`, and then slightly declines as the model becomes overfitted or overly complex.
+    			- Test Score:it peaks at around `max_depth = 20`, where the model achieves the best balance of complexity and generalization.
+		- `min_samples_split`:
+   			 - Training Score: The training accuracy decreases slightly as min_samples_split increases. This is expected since larger splits make the model less complex by preventing small, specialized splits.
+    			- Test Score: The test accuracy remains relatively stable, slightly peaking at lower `min_samples_split` values (around 2-5) and then plateauing or slightly decreasing. This suggests that smaller split thresholds provide sufficient complexity without overfitting.
+		- `min_samples_leaf`:
+    			- Training Score: The training accuracy peaks at `min_samples_leaf = 2` and starts to decline with larger leaf sizes. Smaller leaves allow the model to fit the training data more closely, increasing accuracy but risking overfitting.
+    			- Test Score: The test accuracy mirrors this trend, with a slight peak at min_samples_leaf = 2 and a decline thereafter. Larger leaves simplify the model too much, leading to underfitting.
+		- `max_features`:
+    			- Training Score: The training accuracy increases as the number of features considered for splits grows (`sqrt to log2`). This happens because more features allow the model to fit the training data more precisely.
+    			- Test Score: Test accuracy also improves as max_features increases, with the model achieving the best balance at `log2`. This suggests that considering more features helps the model generalize better without overfitting.<img width="738" alt="Screenshot 2024-12-03 at 23 28 32" src="https://github.com/user-attachments/assets/915af8d5-91c4-421e-a067-cd0fd806bc73">
+  
+	* #### **Grid Search**:
+		- `n_estimators`: 
+    			- Training Score: Remains consistently high, around 90%-95%, across all values of `n_estimators`. This indicates that the model is sufficiently complex to fit the training data well.
+    			- Test Score: Remains lower than the training score, in the range of 65%-70%. This highlights a potential generalization gap, where the model may be overfitting.
+		- `max_depth`:
+    			- Training Score: Increases with `max_depth`, reaching nearly 100% at `max_depth = 20`. This reflects that deeper trees can perfectly fit the training data.
+    			- Test Score: Increase as approaches the around `max_depth = 20`, where the model achieves the best balance between complexity and generalization. Beyond this point, overfitting may cause the test performance to degrade.
+		- `min_samples_split`: 
+    			- Training Score: Decreases slightly as `min_samples_split` increases from 4 to 6. This indicates that higher values of this parameter make the model less flexible, which plays in reducing its ability to fit the training data perfectly.
+    			- Test Score: Remains relatively stable around 65%-70%, suggesting this parameter has minimal impact on the model’s generalization ability.
+		- `min_samples_leaf`:
+    			- Training Score: Decreases as `min_samples_leaf` increases from 1 to 2. Larger leaf sizes enforce a simpler model, reducing overfitting.
+    			- Test Score: Remains relatively stable at approximately 65%-70%, indicating robustness to changes in this parameter.
+		- `max_features`: 
+    			- Training Score: Very high (around 90%-95%) with the derived feature option from Randomized Search, `log2`.
+    			- Test Score: Lower than the training score, approximately 65%-70%, with a notable generalization gap. This suggests careful tuning of max_features might be needed to improve test accuracy.
 
-<img width="738" alt="Screenshot 2024-12-03 at 23 28 32" src="https://github.com/user-attachments/assets/915af8d5-91c4-421e-a067-cd0fd806bc73">
-
-#### **Grid search**
-- `n_estimators`: 
-    - Training Score: Remains consistently high, around 90%-95%, across all values of `n_estimators`. This indicates that the model is sufficiently complex to fit the training data well.
-    - Test Score: Remains lower than the training score, in the range of 65%-70%. This highlights a potential generalization gap, where the model may be overfitting.
-- `max_depth`:
-    - Training Score: Increases with `max_depth`, reaching nearly 100% at `max_depth = 20`. This reflects that deeper trees can perfectly fit the training data.
-    - Test Score: Increase as approaches the around `max_depth = 20`, where the model achieves the best balance between complexity and generalization. Beyond this point, overfitting may cause the test performance to degrade.
-- `min_samples_split`: 
-    - Training Score: Decreases slightly as `min_samples_split` increases from 4 to 6. This indicates that higher values of this parameter make the model less flexible, which plays in reducing its ability to fit the training data perfectly.
-    - Test Score: Remains relatively stable around 65%-70%, suggesting this parameter has minimal impact on the model’s generalization ability.
-- `min_samples_leaf`:
-    - Training Score: Decreases as `min_samples_leaf` increases from 1 to 2. Larger leaf sizes enforce a simpler model, reducing overfitting.
-    - Test Score: Remains relatively stable at approximately 65%-70%, indicating robustness to changes in this parameter.
-- `max_features`: 
-    - Training Score: Very high (around 90%-95%) with the derived feature option from Randomized Search, `log2`.
-    - Test Score: Lower than the training score, approximately 65%-70%, with a notable generalization gap. This suggests careful tuning of max_features might be needed to improve test accuracy.
-
-#### Conclusion
+* #### **Conclusion:**
 - After conducting a randomized search for initial hyperparameter exploration, a grid search was performed to fine-tune the selected parameters with cross-validation. The results indicate that `n_estimators` and `max_depth` play a significant role, with training scores consistently high and test scores peaking at balanced values. The rest of the parameters like `min_samples_split`, `min_samples_leaf`, and `max_features` show stable test performance, with optimal values preventing overfitting or underfitting, demonstrating the model's sensitivity to complexity control.
 - The sensitivity analysis provides strong evidence to support the hyperparameter choices from the hyperparameter tuning we have done earlier. These visualizations not only validate the optimal values but also highlight how performance would degrade with less optimal configurations. This alignment increases our confidence in the tuned Random Forest model's robustness and generalization capabilities.
 
-### Which is the **Best Model** to Complete the Royal Task?
- Your excellency, after our tireless preparation, training, and evaluation efforts, we– your humble workers, have deduced that the **Random Forest** model is perfect for this Royal Task. In search of the optimal model, we have brought forth four machine learning model options: Gradient Boosted Tress, K-Nearest Numbers, Logistic Regression, and Random Forest. We have trained and validated these models with a dataset we have refined to make the most accurate, unbiased, and precise predictions. After the initial training and testing, we have found out that in descending order the ones with the highest validation accuracy: GBTs, Logistic Regression, Random Forest, and lastly KNN. Even though GBT had the highest accuracy we have moved forth with hyperparameter tuning Random Forests and Logistic Regression as they were significantly more computationally efficient when compared to GBTs. Through our efforts of hyperparameter tune with the cross-examination methods we evaluated our refined models. We have found out that after extensive evaluations, though logistic regression had great accuracy, random forests dominated in predicting ability and accuracy in comparison. Thus, mi-lord, we have decided the Random Forest is the best model for your Highness’ Royal Task.
+* ### **Which is the **Best Model** to Complete the Royal Task?**
+	* Your excellency, after our tireless preparation, training, and evaluation efforts, we–your humble servants– have deduced that the: **`Random Forest`** model is perfect for this Royal Task. In search of the optimal model, we have brought forth four machine learning model options: Gradient Boosted Tress, K-Nearest Numbers, Logistic Regression, and Random Forest. We have trained and validated these models with a dataset we have refined to make the most accurate, unbiased, and precise predictions. After the initial training and testing, we have found out that in descending order the ones with the highest validation accuracy: GBTs, Logistic Regression, Random Forest, and lastly KNN. 
+	* Even though GBT had the highest accuracy we have moved forth with hyperparameter tuning Random Forests and Logistic Regression as they were significantly more computationally efficient when compared to GBTs. Through our efforts of hyperparameter tune with the cross-examination methods we evaluated our refined models. We have found out that after extensive evaluations, though logistic regression had great accuracy, random forests dominated in predicting ability and accuracy in comparison. Thus, mi-lord, we have decided the Random Forest is the best model for your Highness’ Royal Task.
 
-### 10) Our Expert Cut: How Can We Optimize Guild Prediction?
-We’ve trekked through our long, vast journey, and we reach our final interval of destinations. In this section, we aim to understand the underlying significances, associations, and trends that a surface-level exploration fails to capture. 
-#### We go beyond our Royal Contract, and delve even deeper into the *UNKNOWN*...
+
+## **<h4 align="center"> ★ 10) Our Expert Cut: How Can We Optimize Guild Prediction? 🎯 ★ </h4>** 
+
+### We’ve trekked through our long, vast journey, and we reach our final interval of destinations. In this section, we aim to understand the underlying significances, associations, and trends that a surface-level exploration fails to capture. #### We go beyond our Royal Contract, and delve even deeper into the *UNKNOWN*...
 * We begin by targeting our top contending classifiers to revisit our explorations, and understand the intricate relationships between all of our Scholars’ features and characteristics so that we can better improve prediction for the Kingdom!
-* 1) With our Feature Importance Identification, we designed this function of deepening to extract and conceptualize the score of importance for each Scholar feature. Our plots sort the features by importance, returns this DataFrame, and extracts this importance to be mapped. We decided that identifying the Top 10 most important features was a paramount strategy to assist in the final most serious and accurate predictions. We fit the Random Forest Classifier with our top-picked hyperparameters and retrieved the feature importance scores. By forming a dataframe cataloging the feature names with their importance scores, we sorted them in descending order, with the most important ones prevailing on top. We proceed to plot them in a horizontal bar chart and can this simply and spatially understand the ranges of importance, just within this Top 10 exposition. 
-* **Our Observations**: 
-* `Fae Dust Reserve` is our most influential feature, by far. This is then followed by `Mystic Energy Level`, and `Mystical Index`. These are features that are closely related to a metric of magic, a trait that seems to be heavily deterministic for predicting Guild classes. One can assume that a certain amount of mystical powers/abilities are strong indicators of “legacy” for entering a certain guild. This presence leads us to assume that this mystical set of traits could transcend possible discrepancies in perfect stamina, health, or physical capabilities, as magical consistency acts potentially as a function of mystical “nepotism”, so to speak. Let’s break down these importances:
+* ### 1) FEATURE IMPORTANCE: How can it help our Scholars Succeed?
+With our Feature Importance Identification, we designed this function of deepening to extract and conceptualize the score of importance for each Scholar feature. Our plots sort the features by importance, returns this DataFrame, and extracts this importance to be mapped. We decided that identifying the Top 10 most important features was a paramount strategy to assist in the final most serious and accurate predictions. We fit the Random Forest Classifier with our top-picked hyperparameters and retrieved the feature importance scores. By forming a dataframe cataloging the feature names with their importance scores, we sorted them in descending order, with the most important ones prevailing on top. We proceed to plot them in a horizontal bar chart and can this simply and spatially understand the ranges of importance, just within this Top 10 exposition. 
+	* **Our Observations**: 
+		* `Fae Dust Reserve` is our most influential feature, by far. This is then followed by `Mystic Energy Level`, and `Mystical Index`. These are features that are closely related to a metric of magic, a trait that seems to be heavily deterministic for predicting Guild classes. One can assume that a certain amount of mystical powers/abilities are strong indicators of “legacy” for entering a certain guild. This presence leads us to assume that this mystical set of traits could transcend possible discrepancies in perfect stamina, health, or physical capabilities, as magical consistency acts potentially as a function of mystical “nepotism”, so to speak. Let’s break down these importances:
 <img width="1021" alt="Screenshot 2024-12-04 at 00 04 48" src="https://github.com/user-attachments/assets/95011c36-e87b-47f4-aaea-8c3f8ee7bfbb">
 
-**You have entered the Black Market**
-* **Welcome to our Inside Scoop: *Scholar Counseling Services***
+## **<h5 align="center"> You have entered the Black Market </h5>** 
+
+### **Welcome to our Inside Scoop: *Scholar Counseling Services***
 * **CAUTION: THIS IS NOT KINGDOM-CERTIFIED; USE AT YOUR OWN RISK!**
 You may… or may not have what it takes to reach your shining Master Guild goal. But if you follow our empirically-based evidence, you can “insider-trade” your way into your dreams! Yes, take *heavy* precaution, as this isn’t too legal, but can give you extreme, advanced insight into tried-and-true results. 
 The most determinant features, according to a finely-tuned algorithm model (Random Forest), tells our black-market researchers that access to magical resources and power, as well as access to rare mystical elements, is highly indicative in classification motivation. 
 * *From the Village Gossip*:  A little birdie told us that Scholars with higher power reserves are much more likely to be placed in higher guilds. Are you stuck without a Guild to your name? Do not fret! You can stop disappointing your family members and find a connection to increase your access to these rare resources. **Contact us if you’re willing to take the risk!**
-Don’t say we didn’t warn you, some traits are just too hard to attain, even through the black market. Our researchers have informed us that Mystic Energy Levels, or your internal capacity for magic is a near direct reflection of your proficiency to perform dangerous magical tasks. Sorry not sorry if you aren’t blessed with this trait –you can try to maximize your potential with the next piece of advice.
+**Don’t say we didn’t warn you,** some traits are just too hard to attain, even through the black market. Our researchers have informed us that Mystic Energy Levels, or your internal capacity for magic is a near direct reflection of your proficiency to perform dangerous magical tasks. Sorry not sorry if you aren’t blessed with this trait –you can try to maximize your potential with the next piece of advice.
 * Mystical Indexes can be optimized with non-stop training and effort. If you practice 24/7, we have faith in you, dear Scholar! The higher your composite score of magical skill, the more inclined the Classifiers are to believe that you possess this “inner talent”.... They don’t have to know the truth though– work hard and dreams can come true!
 
-* **The Less Important Scoop**:
+### **The Less Important Scoop**:
 * In less important, and easily-accessible, around-the-bush advice, the more wise you are, the more likely you are to be highly-ranked. This is just a fact– call it ageist; however, you older folks might love this piece of information!
 * And to everyone’s knowledge, you must **always** exercise! Healthy meals and physical training end up having some kind of impact on your Guild Membership. 
 * Though you, dear Reader, are on the black market searching for help, I will inform you that Knightly Valor is a great attribute for classification. If you represent courage, integrity, and leadership, you increase your chances to enter the **Master Guild**! *What are you doing here, anyway. Stop breaking the rules! Maybe that’s why you haven’t entered the top Guild yet!*
 
-**You have exited the Black Market**
+## **<h5 align="center"> You have exited the Black Market, see you soon! </h5>** 
 
-* 2) Top Features and their Boxplots, associated by Guild Membership. We felt compelled to justify our actions, as to be completely in line with our Royal Contract. In an effort to further support our selection of the Random Forest Classifier as our best performing model, we decided to visually conceptualize the distribution of the top 3 important features, sorted by class. These box plots provide a clear understanding of how these features impact the Guild Membership. 
-* Our observations:
-* It must be noted that in this kind of exploration, there is a slight competition of the Mystical Index amongst the others, in influence for the Guild classifications. 
-* It must also be noted that the overlap between the Fae Dust Reserve and the Mystic Energy Levels explain that there are very subtle interactions among features, in terms of predicting classes. This is **precisely** WHY we chose the Random Forest model for prediction! Its complex nature and ability to sift through intricate, non-linear relationships are direct reasons to justify our final decision with the `Random Forest`!
+* ### 2) TOP FEATURE DISTRIBUTION: Per Guild Membership
+Top Features and their Boxplots, associated by Guild Membership. We felt compelled to justify our actions, as to be completely in line with our Royal Contract. In an effort to further support our selection of the Random Forest Classifier as our best performing model, we decided to visually conceptualize the distribution of the top 3 important features, sorted by class. These box plots provide a clear understanding of how these features impact the Guild Membership. 
+	* Our observations:
+		* It must be noted that in this kind of exploration, there is a slight competition of the Mystical Index amongst the others, in influence for the Guild classifications. 
+		* It must also be noted that the overlap between the Fae Dust Reserve and the Mystic Energy Levels explain that there are very subtle interactions among features, in terms of predicting classes. This is **precisely** WHY we chose the Random Forest model for prediction! Its complex nature and ability to sift through intricate, non-linear relationships are direct reasons to justify our final decision with the `Random Forest`!
 <img width="1021" alt="Screenshot 2024-12-04 at 00 05 42" src="https://github.com/user-attachments/assets/b323a4a1-cc58-43fa-98d4-70db7c503e46">
 
 
-* 3) Evaluating our previous Top 2 Contenders to continue justifying, in empirical comparisons, as to why Random Forest is the best choice in every case! We conducted these comparisons based on:
-* `Mean Squared Error (MSE)`: to see how similar the predictions were to the actual values, with a lower value being a closer result!
-* `R^2 Score`: showing us how successful the model is at defining variance in the Guild Membership (target variable), with higher values being the most accurate.
-* `Runtime`: computational time
-* Our observations: 
-**MSE Values**: 
-- Random Forest: low MSE in comparison
-- Logistic Regression: higher than Random Forest, proving it does not predict as well
-**R^2 Scores**: 
-- Random Forest: achieves a high score, proving that it can define much more variance within our complex dataset, and is able to identify relationships in our target variable.
-- Logistic Regression: lower score, indicating that this model is likely underfitting and not adept at defining variance.
+* ### 3) COMPARATIVE PERFORMANCE: To affirm our Royal Decision
+Evaluating our previous Top 2 Contenders to continue justifying, in empirical comparisons, as to why Random Forest is the best choice in every case! We conducted these comparisons based on:
+	* `Mean Squared Error (MSE)`: to see how similar the predictions were to the actual values, with a lower value being a closer result!
+	* `R Sqaured Score`: showing us how successful the model is at defining variance in the Guild Membership (target variable), with higher values being the most accurate.
+	* `Runtime`: computational time
+		* Our observations: 
+		**MSE Values**: 
+			- Random Forest: low MSE in comparison
+			- Logistic Regression: higher than Random Forest, proving it does not predict as well
+		**R Squared Scores**: 
+			- Random Forest: achieves a high score, proving that it can define much more variance within our complex dataset, and is able to identify relationships in our target variable.
+			- Logistic Regression: lower score, indicating that this model is likely underfitting and not adept at defining variance.
 * These metrics are obviously significant to further clarify our assurance and confidence in selecting Random Forest as our **crowned** model! 
 * Though Random Forest takes slightly more time to compute, we must prioritize all of these accuracies and performance statistics over simple rate of speed. This demonstrates our understanding and grounded decision-making. 
 
-* 4) We wanted to capture global data variance in a lower-dimension space, and visualize linear transformations from our covariance matrix. We were able to accomplish this with Principal Component Analysis (PCA). We project our X features into 2D with Principal Component 1 and 2. We then output  a scatter plot to highlight how the data points shift away from each other by the Membership classification within this reduced space. We print our important features and delineate them from the total number of features. By visualizing this Guild separation, we can understand how well it was completed.
-* Our observations: 
-- We notice significant overlap between the 3 Guilds in our transformed space. From this we can gather that the memberships are not entirely linearly separable based on the Features the Kingdom supplied us with. 
-- This tells us that Apprentices, and even non-ranked Scholars have a somewhat chance to reach a Master Guild status, leaving them with more hope! However, this also indicates that Master Scholars have extra special or enhanced qualities within these features to have accessed their status. 
-- **Though they overlap**, we can determine that some trends in this plot prove that Scholars closer to a chance to be in the Master Guild (green cluster) in this PCA display have decently “aligned” profiles with those already in the Master Guild, insinuating that they have potential to enter the Master Guild soon. 
+* ### 4) DIMENSIONALITY REDUCTION: Understanding Variance and Feature Separation
+* We wanted to capture global data variance in a lower-dimension space, and visualize linear transformations from our covariance matrix. We were able to accomplish this with Principal Component Analysis (PCA). We project our X features into 2D with Principal Component 1 and 2. We then output  a scatter plot to highlight how the data points shift away from each other by the Membership classification within this reduced space. We print our important features and delineate them from the total number of features. By visualizing this Guild separation, we can understand how well it was completed.
+	* Our observations: 
+		- We notice significant overlap between the 3 Guilds in our transformed space. From this we can gather that the memberships are not entirely linearly separable based on the Features the Kingdom supplied us with. 
+		- This tells us that Apprentices, and even non-ranked Scholars have a somewhat chance to reach a Master Guild status, leaving them with more hope! However, this also indicates that Master Scholars have extra special or enhanced qualities within these features to have accessed their status. 
+		- **Though they overlap**, we can determine that some trends in this plot prove that Scholars closer to a chance to be in the Master Guild (green cluster) in this PCA display have decently “aligned” profiles with those already in the Master Guild, insinuating that they have potential to enter the Master Guild soon. 
 <img width="1021" alt="Screenshot 2024-12-04 at 00 03 45" src="https://github.com/user-attachments/assets/2de631ed-44eb-424c-b25c-77fb31e8999e">
 
-* **ATTENTION ASPIRING SCHOLARS**:
+#### **<h5 align="center"> ATTENTION ASPIRING SCHOLARS ! </h5>** 
 * You must enhance your key/critical powers and strengths that are similar to your Master Guild colleagues and counterparts.
 * Analyze the routines and trends that your Master Scholar friends follow, and you could improve your chance to be one of them soon!
 
