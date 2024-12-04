@@ -507,7 +507,7 @@ With our Feature Importance Identification, we designed this function of deepeni
 * **Our Observations**: 
 	* `Fae Dust Reserve` is our most influential feature, by far. This is then followed by `Mystic Energy Level`, and `Mystical Index`. These are features that are closely related to a metric of magic, a trait that seems to be heavily deterministic for predicting Guild classes. One can assume that a certain amount of mystical powers/abilities are strong indicators of “legacy” for entering a certain guild. This presence leads us to assume that this mystical set of traits could transcend possible discrepancies in perfect stamina, health, or physical capabilities, as magical consistency acts potentially as a function of mystical “nepotism”, so to speak. Let’s break down these importances 
 
-## <h5 align="center" style="color:red;">You have entered the Black Market</h5>
+## **<h5 align="center"> 🔴 You have entered the Black Market 🔴</h5>**
 
 ### **Welcome to our Inside Scoop: *Scholar Counseling Services***
 * **CAUTION: THIS IS NOT KINGDOM-CERTIFIED; USE AT YOUR OWN RISK!**
@@ -522,7 +522,7 @@ The most determinant features, according to a finely-tuned algorithm model (Rand
 * And to everyone’s knowledge, you must **always** exercise! Healthy meals and physical training end up having some kind of impact on your Guild Membership. 
 * Though you, dear Reader, are on the black market searching for help, I will inform you that Knightly Valor is a great attribute for classification. If you represent courage, integrity, and leadership, you increase your chances to enter the **Master Guild**! *What are you doing here, anyway. Stop breaking the rules! Maybe that’s why you haven’t entered the top Guild yet!*
 
-## <h5 align="center" style="color:red;">You have exited the Black Market, see you soon!</h5>
+## **<h5 align="center"> 🔴 You have exited the Black Market, see you soon! 🔴 </h5>**
 
 * ### 2) TOP FEATURE DISTRIBUTION: Per Guild Membership
 Top Features and their Boxplots, associated by Guild Membership. We felt compelled to justify our actions, as to be completely in line with our Royal Contract. In an effort to further support our selection of the Random Forest Classifier as our best performing model, we decided to visually conceptualize the distribution of the top 3 important features, sorted by class. These box plots provide a clear understanding of how these features impact the Guild Membership. 
@@ -555,7 +555,8 @@ Evaluating our previous Top 2 Contenders to continue justifying, in empirical co
 		- **Though they overlap**, we can determine that some trends in this plot prove that Scholars closer to a chance to be in the Master Guild (green cluster) in this PCA display have decently “aligned” profiles with those already in the Master Guild, insinuating that they have potential to enter the Master Guild soon. 
 <img width="1021" alt="Screenshot 2024-12-04 at 00 03 45" src="https://github.com/user-attachments/assets/2de631ed-44eb-424c-b25c-77fb31e8999e">
 
-#### **<h5 align="center"> ATTENTION ASPIRING SCHOLARS ! </h5>** 
+
+### **<h5 align="center"> ATTENTION ASPIRING SCHOLARS ! </h5>** 
 * You must enhance your key/critical powers and strengths that are similar to your Master Guild colleagues and counterparts.
 * Analyze the routines and trends that your Master Scholar friends follow, and you could improve your chance to be one of them soon!
 
